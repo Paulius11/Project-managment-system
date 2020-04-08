@@ -11,3 +11,6 @@ Labas
 
 #Albert commit
 #123123312
+
+#Kaip pasipulint info
+https://gist.github.com/CristinaSolana/1885435
