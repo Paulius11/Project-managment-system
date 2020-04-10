@@ -1,3 +1,4 @@
+
 # Project-managment-system
 Projektų užduočių valdymo programa
 
@@ -6,7 +7,7 @@ ok viktoras
 Labas
 
 #Viliaus commit
-
+# Ruslano commit 2020-04-10
 #Andzejaus commitas
 
 #Albert commit
