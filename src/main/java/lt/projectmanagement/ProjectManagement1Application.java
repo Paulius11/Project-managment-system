@@ -32,7 +32,7 @@ public class ProjectManagement1Application {
 //			repositoryProject.save(new Project("TestProjectName", "TestDescrName", true));
 //
 //			taskRepository.save(
-//					new Task("New task1", "Task descrription", TaskPriorityLevel.NORMAL, TaskState.TO_DO, new Date()));
+//					new Task("New task1", "Task description", TaskPriorityLevel.NORMAL, TaskState.TO_DO, new Date()));
 
 			log.info("fetch project by name:");
 			List<Project> findByProjectName = repositoryProject.findByProjectName("Exciting project-0");

@@ -15,7 +15,7 @@ import lt.projectmanagement.model.ProjectPostModel;
 import lt.projectmanagement.model.Task;
 
 @Service
-public class UserServiceResponseImpl implements UserService {
+public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 	@Autowired
 	ProjectRepository repositoryProject;
@@ -81,11 +81,25 @@ public class UserServiceResponseImpl implements UserService {
 
 	// TASKS
 
+	private Optional<Project> getProjectById(Long projectId) {
+		Optional<Project> findProjectById = Optional.of(
+				repositoryProject.findById(projectId).orElseThrow(() -> new UserNotFoundException("id:" + projectId)));
+		return findProjectById;
+	}
+
 	@Override
 	public List<Task> getAllTasks(Long projectId) {
-		Optional<Project> findAllTasks = Optional.of(
-				repositoryProject.findById(projectId).orElseThrow(() -> new UserNotFoundException("id:" + projectId)));
-		return findAllTasks.get().getListOfTasks();
+		Optional<Project> project = getProjectById(projectId);
+		return project.get().getListOfTasks();
+	}
+
+	@Override
+	public Task getSpecificTask(Long projectId, Long taskId) {
+		List<Task> listOfTasks = getAllTasks(projectId);
+		Task orElseThrow = listOfTasks.stream().filter(x -> x.getId() == taskId).findFirst()
+				.orElseThrow(() -> new UserNotFoundException("Task-id:" + taskId));
+		return orElseThrow;
+
 	}
 
 }

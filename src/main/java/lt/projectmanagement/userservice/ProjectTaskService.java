@@ -6,7 +6,7 @@ import lt.projectmanagement.model.Project;
 import lt.projectmanagement.model.ProjectPostModel;
 import lt.projectmanagement.model.Task;
 
-public interface UserService {
+public interface ProjectTaskService {
 
 	List<Project> getAllProjects();
 
@@ -21,5 +21,7 @@ public interface UserService {
 	Project geProjectById(Long id);
 
 	List<Task> getAllTasks(Long projectId);
+
+	Task getSpecificTask(Long projectId, Long taskId);
 
 }

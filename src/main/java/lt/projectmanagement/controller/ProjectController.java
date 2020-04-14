@@ -23,7 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lt.projectmanagement.model.Project;
 import lt.projectmanagement.model.ProjectPostModel;
-import lt.projectmanagement.userservice.UserService;
+import lt.projectmanagement.userservice.ProjectTaskService;
 
 @CrossOrigin(origins = { "http://localhost:3000" })
 @Api(value = "user")
@@ -32,7 +32,7 @@ import lt.projectmanagement.userservice.UserService;
 public class ProjectController {
 
 	@Autowired
-	UserService userService;
+	ProjectTaskService userService;
 	private Project createProject;
 
 	@ApiOperation(value = "Get users", notes = "Returns registered users.")

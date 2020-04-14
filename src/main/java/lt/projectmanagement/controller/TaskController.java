@@ -11,24 +11,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lt.projectmanagement.model.Task;
-import lt.projectmanagement.userservice.UserService;
+import lt.projectmanagement.userservice.ProjectTaskService;
 
 @RestController
-@RequestMapping("/api/project/{projectId}/tasks")
+@RequestMapping("/api/project/{projectId}/task")
 public class TaskController {
 
-//	Gauti visus taskus - GET /projects/{id}/tasks
-//	Gauti kontretu taską - GET /projects/{id}/tasks/{taskID}
-//	Sukurti taską  - POST /projects/{id}/tasks/
-//	Ištrinti taską - DELETE /projects/{id}/tasks/{taskID}
-//	Pakeisti taską - PUT  /projects/{id}/tasks/{taskID}
+//	Sukurti taską  - POST /project/{id}/task/
+//	Ištrinti taską - DELETE /project/{id}/task/{taskID}
+//	Pakeisti taską - PUT  /projects/{id}/task/{taskID}
 
 	@Autowired
-	UserService userService;
+	ProjectTaskService userService;
 
+//	Gauti visus taskus - GET /project/{id}/tasks
 	@GetMapping()
 	public ResponseEntity<List<Task>> getAllTasks(@PathVariable Long projectId) {
 		return new ResponseEntity<List<Task>>(userService.getAllTasks(projectId), HttpStatus.OK);
+	}
+
+//	Gauti kontretu taską - GET /project/{id}/task/{taskID}
+	@GetMapping("/{taskId}")
+	public ResponseEntity<Task> getSpecificTask(@PathVariable Long projectId, @PathVariable Long taskId) {
+		return new ResponseEntity<Task>(userService.getSpecificTask(projectId, taskId), HttpStatus.OK);
 	}
 
 }
