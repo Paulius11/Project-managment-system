@@ -17,6 +17,7 @@ import lt.projectmanagement.userservice.ProjectTaskService;
 @RequestMapping("/api/project/{projectId}/task")
 public class TaskController {
 
+//: TODO Add Validation
 //	Sukurti taską  - POST /project/{id}/task/
 //	Ištrinti taską - DELETE /project/{id}/task/{taskID}
 //	Pakeisti taską - PUT  /projects/{id}/task/{taskID}
