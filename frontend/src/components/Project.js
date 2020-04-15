@@ -31,7 +31,7 @@ export default class Project extends Component {
             projectId: this.state.projectId
         };
 
-        axios.post("http://localhost:9090/api/project", project)
+        axios.post("http://localhost:9090/api/projects", project)
             .then(response => {
                 if (response.data != null) {
                     this.setState(this.initialState);

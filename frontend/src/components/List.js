@@ -14,7 +14,7 @@ export default class List extends Component {
         this.state = {
             lists: []
         }
-        this.api = "http://localhost:9090/api";
+        this.api = "http://localhost:9090/api/projects";
 
     }
     componentDidMount() {
@@ -25,7 +25,7 @@ export default class List extends Component {
     }
 
     getLists() {
-        axios.get(this.api + "/project")
+        axios.get(this.api)
             .then((data) => {
                 this.setState({ lists: data.data });
 
@@ -38,7 +38,7 @@ export default class List extends Component {
 
     deleteProject = (projectId) => {
 
-        axios.delete(this.api + "/project/" + projectId)
+        axios.delete(this.api  + projectId)
             .then(response => {
 
                 if (response != null)
