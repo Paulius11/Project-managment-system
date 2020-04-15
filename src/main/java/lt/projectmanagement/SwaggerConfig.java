@@ -20,7 +20,7 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors.basePackage("lt.projectmanagement.controller")).build();
 	}
 
-	private ApiInfo metadata() {
+	public ApiInfo metadata() {
 		return new ApiInfoBuilder().title("Project Management System").description("CRUD api for projects and tasks")
 				.version("1.0").build();
 	}
