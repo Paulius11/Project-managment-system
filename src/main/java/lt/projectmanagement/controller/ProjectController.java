@@ -28,7 +28,7 @@ import lt.projectmanagement.userservice.ProjectTaskService;
 @CrossOrigin(origins = { "http://localhost:3000" })
 @Api(value = "user")
 @RestController
-@RequestMapping("/api/project")
+@RequestMapping("/api/projects")
 public class ProjectController {
 
 	@Autowired
@@ -52,7 +52,7 @@ public class ProjectController {
 	public ResponseEntity<Object> createProject(@Valid @RequestBody ProjectPostModel projectPost) {
 		createProject = userService.createProject(projectPost);
 
-		// Adds to response 'Header Location': http://localhost:9090/api/project/{id}
+		// Adds to response 'Header Location': http://localhost:9090/api/projects/{id}
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(createProject.getId()).toUri();
 		return ResponseEntity.created(location).build();
