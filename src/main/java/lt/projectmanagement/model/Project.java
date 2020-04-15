@@ -2,16 +2,14 @@ package lt.projectmanagement.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
-
 
 @Entity
 @Component
@@ -21,18 +19,19 @@ public class Project {
 	private Long id;
 	private String projectName;
 	private String projectDescription;
-	
+
 	// Information about project
 	private boolean projectState;
-	
+
 	// TODO: Projekto bendras užduočių kiekis
 	// TODO: Projekto neatliktų užduočių kiekis
 
-	@OneToMany(mappedBy = "project" )
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Task> listOfTasks;
 
-	protected Project() {};
-	
+	protected Project() {
+	};
+
 	public Project(String name, String description, boolean projectState) {
 		super();
 		this.projectName = name;
