@@ -8,6 +8,8 @@ http://localhost:9090/api/project
 https://gist.github.com/CristinaSolana/1885435
 
 
+ Būtinas padaryti dalykas pirma karta pasicloninus repozitoriją frontend aplanke iškviesti konsolę ir įrašyti komandą "npm install"
+
 ### Mappingas
 
 #### Projects

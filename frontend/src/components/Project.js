@@ -152,6 +152,7 @@ export default class Project extends Component {
                         <Button size="sm" variant="info" type="button" onClick={this.projectList.bind()}>
                             <FontAwesomeIcon icon={faList} />  Project List
                         </Button>
+
                     </Card.Footer>
                 </Form>
             </Card>
