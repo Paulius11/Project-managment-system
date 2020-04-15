@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Table, ButtonGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -83,7 +83,15 @@ export default class List extends Component {
                                                     <ButtonGroup>
                                                         <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
-                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}><FontAwesomeIcon icon={faTrash} /> </Button>{''}
+                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
+                                                            <FontAwesomeIcon icon={faTrash} /> </Button>{''}
+                                                        <Link to={"addtask"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                                                        <Link to={"tasks/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
+                                                        {
+                                                            /* Reik padaryti kazkaip, kad linkintu su mygtuku i task lists puslapi
+    
+                                                       */
+                                                        }
                                                     </ButtonGroup>
                                                 </td>
                                             </tr>)
