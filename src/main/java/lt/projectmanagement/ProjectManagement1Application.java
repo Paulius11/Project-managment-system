@@ -25,7 +25,7 @@ public class ProjectManagement1Application {
 	@Bean
 	public CommandLineRunner demo(ProjectRepository repositoryProject, TaskRepository taskRepository) {
 		return (args) -> {
-			// save a few projects
+//			// save a few projects
 //			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", true));
 //			repositoryProject.save(new Project("Exciting project-1", "Do something easy-1", true));
 //			repositoryProject.save(new Project("Exciting project-2", "Do something simple-2", true));

@@ -3,6 +3,8 @@ package lt.projectmanagement.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +21,12 @@ public class Task {
 	private String taskName;
 	// Užduoties aprašymas (User story formatas)
 	private String taskDescription;
-	private TaskPriorityLevel projectPriority;
+
+	@Enumerated(EnumType.STRING)
+	private TaskPriorityLevel taskPriority;
+	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
+
 	private Date taskCreateTime;
 	private Date taskModifyTime;
 
@@ -36,7 +42,7 @@ public class Task {
 		super();
 		this.taskName = taskName;
 		this.taskDescription = taskDescription;
-		this.projectPriority = projectPriority;
+		this.taskPriority = projectPriority;
 		this.taskState = taskState;
 		this.taskModifyTime = taskModifyTime;
 		this.taskCreateTime = new Date();
@@ -46,6 +52,7 @@ public class Task {
 		return taskCreateTime;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public Date getTaskModifyTime() {
 		return taskModifyTime;
 	}
@@ -79,11 +86,11 @@ public class Task {
 	}
 
 	public TaskPriorityLevel getProjectPriority() {
-		return projectPriority;
+		return taskPriority;
 	}
 
 	public void setProjectPriority(TaskPriorityLevel projectPriority) {
-		this.projectPriority = projectPriority;
+		this.taskPriority = projectPriority;
 	}
 
 	public TaskState getTaskState() {
@@ -105,7 +112,7 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", taskName=" + taskName + ", taskDescription=" + taskDescription
-				+ ", projectPriority=" + projectPriority + ", taskState=" + taskState + "]";
+				+ ", projectPriority=" + taskPriority + ", taskState=" + taskState + "]";
 	}
 
 }

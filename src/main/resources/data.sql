@@ -7,11 +7,11 @@ VALUES
 ((SELECT MAX(ID)+1  FROM PROJECT), 'Programavimo kalbos', 'Kalbos kurias mokysiuosi', true)
 ;
 
-INSERT INTO TASK (ID, PROJECT_ID, TASK_NAME, TASK_DESCRIPTION, PROJECT_PRIORITY, TASK_CREATE_TIME, TASK_MODIFY_TIME, TASK_STATE) 
+INSERT INTO TASK (ID, PROJECT_ID, TASK_NAME, TASK_DESCRIPTION, TASK_PRIORITY, TASK_CREATE_TIME, TASK_MODIFY_TIME, TASK_STATE) 
 VALUES 
-				            (1, 42, 'Backend', 'Sukurti backendą', 1, sysdate(), sysdate(), 1 ),
-((SELECT MAX(ID)+1  FROM TASK), 42, 'FrontEnd', 'Sukurti frontendą', 1, sysdate(), sysdate(), 1 ),
-((SELECT MAX(ID)+1  FROM TASK), 42, 'React', 'Išmokti React', 1, sysdate(), sysdate(), 1 ),
-((SELECT MAX(ID)+1  FROM TASK), 44, 'Java', 'Išmokti Java', 1, sysdate(), sysdate(), 1 )
+				            (1, 42, 'Backend', 'Sukurti backendą', 'NORMAL', sysdate(), sysdate(), 'IN_PROGRESS' ),
+((SELECT MAX(ID)+1  FROM TASK), 42, 'FrontEnd', 'Sukurti frontendą', 'LOW', sysdate(), sysdate(), 'TO_DO' ),
+((SELECT MAX(ID)+1  FROM TASK), 42, 'React', 'Išmokti React', 'NORMAL', sysdate(), sysdate(), 'TO_DO' ),
+((SELECT MAX(ID)+1  FROM TASK), 44, 'Java', 'Išmokti Java', 'HIGH', sysdate(), sysdate(), 'DONE' )
 ;
 
