@@ -144,14 +144,14 @@ export default class Project extends Component {
                     <Card.Footer>
                         <Button size="sm" variant="success" type="submit">
                             <FontAwesomeIcon icon={faSave} />  Submit
-                        </Button>{''}
+                        </Button>{'  '}
 
                         <Button size="sm" variant="info" type="reset">
                             <FontAwesomeIcon icon={faUndo} />  Reset
-                        </Button>
+                        </Button>{'  '}
                         <Button size="sm" variant="info" type="button" onClick={this.projectList.bind()}>
                             <FontAwesomeIcon icon={faList} />  Project List
-                        </Button>
+                        </Button>{'  '}
 
                     </Card.Footer>
                 </Form>
