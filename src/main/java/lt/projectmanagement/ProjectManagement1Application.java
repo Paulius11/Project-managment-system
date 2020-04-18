@@ -1,5 +1,6 @@
 package lt.projectmanagement;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
 import lt.projectmanagement.model.Project;
+import lt.projectmanagement.model.Task;
+import lt.projectmanagement.model.TaskPriorityLevel;
+import lt.projectmanagement.model.TaskState;
 
 @SpringBootApplication
 public class ProjectManagement1Application {
@@ -25,14 +29,14 @@ public class ProjectManagement1Application {
 	@Bean
 	public CommandLineRunner demo(ProjectRepository repositoryProject, TaskRepository taskRepository) {
 		return (args) -> {
-//			// save a few projects
-//			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", true));
-//			repositoryProject.save(new Project("Exciting project-1", "Do something easy-1", true));
-//			repositoryProject.save(new Project("Exciting project-2", "Do something simple-2", true));
-//			repositoryProject.save(new Project("TestProjectName", "TestDescrName", true));
-//
-//			taskRepository.save(
-//					new Task("New task1", "Task description", TaskPriorityLevel.NORMAL, TaskState.TO_DO, new Date()));
+			// save a few projects
+			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", true));
+			repositoryProject.save(new Project("Exciting project-1", "Do something easy-1", true));
+			repositoryProject.save(new Project("Exciting project-2", "Do something simple-2", true));
+			repositoryProject.save(new Project("TestProjectName", "TestDescrName", true));
+
+			taskRepository.save(new Task("New task1", "Task description", TaskPriorityLevel.NORMAL, TaskState.TO_DO,
+					LocalDateTime.now()));
 
 			log.info("fetch project by name:");
 			List<Project> findByProjectName = repositoryProject.findByProjectName("Exciting project-0");

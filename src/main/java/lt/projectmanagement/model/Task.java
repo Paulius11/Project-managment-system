@@ -1,7 +1,8 @@
 package lt.projectmanagement.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(nullable = false)
 	private String taskName;
 	// Užduoties aprašymas (User story formatas)
 	private String taskDescription;
@@ -27,8 +29,8 @@ public class Task {
 	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
 
-	private Date taskCreateTime;
-	private Date taskModifyTime;
+	private LocalDateTime taskCreateTime;
+	private LocalDateTime taskModifyTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -38,26 +40,26 @@ public class Task {
 	}; // :TODO pakeisti i protected? ir Project'e
 
 	public Task(String taskName, String taskDescription, TaskPriorityLevel projectPriority, TaskState taskState,
-			Date taskModifyTime) {
+			LocalDateTime taskModifyTime) {
 		super();
 		this.taskName = taskName;
 		this.taskDescription = taskDescription;
 		this.taskPriority = projectPriority;
 		this.taskState = taskState;
 		this.taskModifyTime = taskModifyTime;
-		this.taskCreateTime = new Date();
+		this.taskCreateTime = LocalDateTime.now();
+
 	}
 
-	public Date getTaskCreateTime() {
+	public LocalDateTime getTaskCreateTime() {
 		return taskCreateTime;
 	}
 
-	@Enumerated(EnumType.STRING)
-	public Date getTaskModifyTime() {
+	public LocalDateTime getTaskModifyTime() {
 		return taskModifyTime;
 	}
 
-	public void setTaskModifyTime(Date taskModifyTime) {
+	public void setTaskModifyTime(LocalDateTime taskModifyTime) {
 		this.taskModifyTime = taskModifyTime;
 	}
 
