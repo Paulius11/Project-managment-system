@@ -2,13 +2,14 @@ package lt.projectmanagement.userservice;
 
 import java.util.List;
 
+import lt.projectmanagement.model.DisplayAllProjectModel;
 import lt.projectmanagement.model.Project;
 import lt.projectmanagement.model.ProjectPostModel;
 import lt.projectmanagement.model.Task;
 
 public interface ProjectTaskService {
 
-	List<Project> getAllProjects();
+	List<DisplayAllProjectModel> getAllProjects();
 
 //	List<Project> getProjectByName(String name);
 

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lt.projectmanagement.model.DisplayAllProjectModel;
 import lt.projectmanagement.model.Project;
 import lt.projectmanagement.model.ProjectPostModel;
 import lt.projectmanagement.userservice.ProjectTaskService;
@@ -37,8 +38,8 @@ public class ProjectController {
 
 	@ApiOperation(value = "Get users", notes = "Returns registered users.")
 	@GetMapping()
-	public ResponseEntity<List<Project>> getAllProject() {
-		return new ResponseEntity<List<Project>>(userService.getAllProjects(), HttpStatus.OK);
+	public ResponseEntity<List<DisplayAllProjectModel>> getAllProject() {
+		return new ResponseEntity<List<DisplayAllProjectModel>>(userService.getAllProjects(), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Get project by projectId", notes = "Returns project by projectId.")

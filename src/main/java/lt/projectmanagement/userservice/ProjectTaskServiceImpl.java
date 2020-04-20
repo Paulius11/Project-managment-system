@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
 import lt.projectmanagement.exceptions.UserNotFoundException;
+import lt.projectmanagement.model.DisplayAllProjectModel;
 import lt.projectmanagement.model.Project;
 import lt.projectmanagement.model.ProjectPostModel;
 import lt.projectmanagement.model.Task;
+import lt.projectmanagement.model.TaskState;
 
 @Service
 public class ProjectTaskServiceImpl implements ProjectTaskService {
@@ -37,17 +39,26 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	}
 
 	@Override
-	public List<Project> getAllProjects() {
-		List<Project> listOfProjects = new ArrayList<>();
+	public List<DisplayAllProjectModel> getAllProjects() {
+		List<DisplayAllProjectModel> listOfProjects = new ArrayList<>();
+
 		Iterable<Project> findAllProjects = repositoryProject.findAll();
-		findAllProjects.forEach(listOfProjects::add);
+		findAllProjects.forEach(project -> {
+			DisplayAllProjectModel displayAllprojectModel = new DisplayAllProjectModel();
+			displayAllprojectModel.setId(project.getId());
+			displayAllprojectModel.setProjectName(project.getProjectName());
+			displayAllprojectModel.setProjectDescription(project.getProjectDescription());
+			String state = project.isProjectState() ? "ACTIVE" : "COMPLETED";
+			displayAllprojectModel.setProjectState(state);
+			displayAllprojectModel.setTotalTasks(project.getListOfTasks().size());
+			displayAllprojectModel.setIncopleteTasks(
+					project.getListOfTasks().stream().filter(x -> x.getTaskState() != TaskState.DONE).count());
+
+			listOfProjects.add(displayAllprojectModel);
+		});
+
 		return listOfProjects;
 	}
-
-//	@Override
-//	public List<Project> getProjectByName(String projectName) {
-//		return repositoryProject.findByProjectName(projectName);
-//	}
 
 	@Override
 	public void deleteProjectById(Long id) {
