@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,25 +21,45 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column(nullable = false)
+
+	@Size(min = 1, max = 50, message = "Message must be between 1 and 50 characters")
 	private String taskName;
-	// Užduoties aprašymas (User story formatas)
+	@NotNull
+	@Size(min = 0, max = 500, message = "Message must be between 0 and 500 characters")
 	private String taskDescription;
 
+	@Column(columnDefinition = "varchar(7) default 'NORMAL'")
 	@Enumerated(EnumType.STRING)
 	private TaskPriorityLevel taskPriority;
+
+	@Column(columnDefinition = "varchar(12) default 'TO_DO'")
 	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
 
+	@NotNull
 	private LocalDateTime taskCreateTime;
+
+	@NotNull
 	private LocalDateTime taskModifyTime;
 
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
 
 	public Task() {
 	}; // :TODO pakeisti i protected? ir Project'e
+
+	public Task(Long id, String taskName, String taskDescription, TaskPriorityLevel taskPriority, TaskState taskState,
+			LocalDateTime taskModifyTime) {
+		super();
+		this.id = id;
+		this.taskName = taskName;
+		this.taskDescription = taskDescription;
+		this.taskPriority = taskPriority;
+		this.taskState = taskState;
+		this.taskCreateTime = LocalDateTime.now();
+		this.taskModifyTime = taskModifyTime;
+	}
 
 	public Task(String taskName, String taskDescription, TaskPriorityLevel projectPriority, TaskState taskState,
 			LocalDateTime taskModifyTime) {
