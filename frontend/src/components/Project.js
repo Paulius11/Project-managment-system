@@ -121,12 +121,16 @@ export default class Project extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridProjectStatus">
                                 <Form.Label>Project Status</Form.Label>
-                                <Form.Control required autoComplete="off"
+                                <Form.Control as="select" required autoComplete="off"
                                     type="text" name="projectStatus"
                                     value={projectStatus}
                                     onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Status" />
+                                    className={"bg-dark text-white"}>
+                                    <option></option>
+                                    <option>Not started</option>
+                                    <option>In progress</option>
+                                    <option>Done</option>
+                                </Form.Control>
                             </Form.Group>
                             <Form.Group as={Col} controlId="formGridProjectId">
                                 <Form.Label>Project Id</Form.Label>

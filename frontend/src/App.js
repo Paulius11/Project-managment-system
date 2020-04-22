@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Project from './components/Project';
 import List from './components/List';
 import Task from './components/Task';
+import TaskList from './components/TaskList';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                             <Route path="/add" exact component={Project} />
                             <Route path="/edit/:projectId" exact component={Project} />
                             <Route path="/addTask" exact component={Task} />
+                            <Route path="/tasklist" exact component={TaskList} />
                             <Route path="/list" exact component={List} />
                         </Switch>
                     </Col>
