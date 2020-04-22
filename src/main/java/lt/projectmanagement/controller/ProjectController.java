@@ -3,6 +3,7 @@ package lt.projectmanagement.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.persistence.Table;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,12 @@ import lt.projectmanagement.userservice.ProjectTaskService;
 @Api(value = "user")
 @RestController
 @RequestMapping("/api/projects")
+@Table (name="projektas")
 public class ProjectController {
 
 	@Autowired
-	ProjectTaskService userService;
+	private ProjectTaskService userService;
+	
 	private Project createProject;
 
 	@ApiOperation(value = "Get users", notes = "Returns registered users.")

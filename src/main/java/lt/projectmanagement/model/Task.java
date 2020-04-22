@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,7 +38,7 @@ public class Task {
 	public Task() {
 	}; // :TODO pakeisti i protected? ir Project'e
 
-	public Task(String taskName, String taskDescription, TaskPriorityLevel projectPriority, TaskState taskState,
+	public Task(String taskName, String taskDescription, TaskPriorityLevel projectPriority,  TaskState taskState,
 			Date taskModifyTime) {
 		super();
 		this.taskName = taskName;
@@ -114,5 +115,6 @@ public class Task {
 		return "Task [id=" + id + ", taskName=" + taskName + ", taskDescription=" + taskDescription
 				+ ", projectPriority=" + taskPriority + ", taskState=" + taskState + "]";
 	}
+
 
 }

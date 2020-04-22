@@ -1,10 +1,10 @@
 package lt.projectmanagement.model;
 
+public class TaskRespModel {
 
-public class ProjectRespModel {
 	private String name;
 	private String description;
-	private boolean projectState;
+	private boolean taskState;
 	public String getName() {
 		return name;
 	}
@@ -17,11 +17,15 @@ public class ProjectRespModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isProjectState() {
-		return projectState;
+	public boolean isTasktate() {
+		return taskState;
 	}
-	public void setProjectState(boolean projectState) {
-		this.projectState = projectState;
+	public void setProjectState(boolean taskState) {
+		this.taskState = taskState;
+	}
+	public static TaskRespModel from(Task createTask) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
