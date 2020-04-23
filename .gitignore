@@ -1,4 +1,6 @@
 # Project
+.vs/
+frontend/.vs/
 node_modules/
 testDB.*
 run_project.ps1
