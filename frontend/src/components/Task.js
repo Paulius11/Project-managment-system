@@ -87,7 +87,7 @@ export default class Task extends Component {
 
     taskList = () => {
 
-        return this.props.history.push("/list"); // App js , kai bus Task List sita reiks pakeist i /tasklist arba koks ten bus parasytas route path
+        return this.props.history.push("/tasklist"); // App js , kai bus Task List sita reiks pakeist i /tasklist arba koks ten bus parasytas route path
 
     };
 
@@ -127,44 +127,34 @@ export default class Task extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridTaskPriority">
                                 <Form.Label>Task Priority</Form.Label>
-                                <Form.Control required autoComplete="off"
+                                <Form.Control as="select" required autoComplete="off"
                                     type="text" name="taskPriority"
                                     value={taskPriority}
                                     onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Status" />
+                                    className={"bg-dark text-white"}>
+                                    <option></option>
+                                    <option>LOW</option>
+                                    <option>NORMAL</option>
+                                    <option>HIGH</option>
+                                </Form.Control>
                             </Form.Group>
+
+
                             <Form.Group as={Col} controlId="formGridTaskState">
                                 <Form.Label>Tast State</Form.Label>
-                                <Form.Control required autoComplete="off"
+                                <Form.Control as="select" required
                                     type="text" name="taskState"
                                     value={taskState}
                                     onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Status" />
+                                    className={"bg-dark text-white"}>
+                                    <option></option>
+                                    <option>TO_DO</option>
+                                    <option>IN_PROGRESS</option>
+                                    <option>DONE</option>
+                                </Form.Control >
                             </Form.Group>
                         </Form.Row>
 
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridTaskModifyTime">
-                                <Form.Label>Task Modify Time</Form.Label>
-                                <Form.Control required autoComplete="off"
-                                    type="text" name="taskModifyTime"
-                                    value={taskModifyTime}
-                                    onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Status" />
-                            </Form.Group>
-                            <Form.Group as={Col} controlId="formGridTaskCreateTime">
-                                <Form.Label> Task Create Time</Form.Label>
-                                <Form.Control required autoComplete="off"
-                                    type="text" name="taskCreateTime"
-                                    value={taskCreateTime}
-                                    onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Status" />
-                            </Form.Group>
-                        </Form.Row>
 
 
                     </Card.Body>
@@ -181,7 +171,7 @@ export default class Task extends Component {
                         </Button>
                     </Card.Footer>
                 </Form>
-            </Card>
+            </Card >
         );
 
     }

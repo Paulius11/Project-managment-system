@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Badge} from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import '../App.css'; 
 
-export default class List extends Component {
+
+export default class TaskList extends Component {
 
 
     constructor(props) {
@@ -14,7 +14,8 @@ export default class List extends Component {
         this.state = {
             lists: []
         }
-        this.api = "http://localhost:9090/api/projects";
+        this.api = "http://localhost:9090/api/projects/44/tasks"; // Kazkaip perduoti reik {projectId} 
+
 
     }
     componentDidMount() {
@@ -29,6 +30,7 @@ export default class List extends Component {
             .then((data) => {
                 this.setState({ lists: data.data });
 
+                console.log(this.state);
             })
             .catch((error) => {
                 console.log(error)
@@ -38,7 +40,7 @@ export default class List extends Component {
 
     deleteProject = (projectId) => {
 
-        axios.delete(this.api + "/" + projectId)
+        axios.delete(this.api)
             .then(response => {
 
                 if (response != null)
@@ -54,48 +56,47 @@ export default class List extends Component {
 
     render() {
         const { lists } = this.state;
+
         return (
 
             < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Header><FontAwesomeIcon icon={faList} /> All projects list </Card.Header>
+                <Card.Header><FontAwesomeIcon icon={faList} />  Task list </Card.Header>
                 <Card.Body>
                     <Table bordered hover striped variant="dark">
-                    
                         <thead>
                             <tr>
-                                <td>Id</td>
-                                <td>Project Name</td>
-                                <td>Project Description</td>
-                                <td>Project Status</td>
-                                <td>Tasks</td>
+                                <td>Task Id</td>
+                                <td>Task Name</td>
+                                <td>Task Description</td>
+                                <td>Task Status</td>
+                                <td>Task Priority</td>
+                                <td>Task Create Time</td>
+                                <td>Task Modify Time</td>
                                 <td>Actions</td>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 lists.length ?
-                                    lists.map(project => {
+                                    lists.map(task => {
                                         return (
-                                            <tr key={project.id}>
-                                                <td>{project.id} </td>
-                                                <td>{project.projectName} </td>
-                                                <td>{project.projectDescription} </td>
-                                                <td align="center"> {project.projectState == "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge> } </td>
-                                                <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
-                                                
+
+                                            <tr key={task.id}>
+                                                <td>{task.id}{console.log(task.id)}</td>
+                                                <td>{task.taskName} </td>
+                                                <td>{task.taskDescription} </td>
+                                                <td>{task.taskPriority}</td>
+                                                <td>{task.taskState} </td>
+                                                <td>{task.taskCreateTime}</td>
+                                                <td>{task.taskModifyTime}</td>
                                                 <td>
                                                     <ButtonGroup>
-                                                        <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
+                                                        <Link to={"edit/" + task.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
-                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
+                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, task.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
                                                         <Link to={"addtask"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                                                        <Link to={"tasklist/"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
-                                                        {
-                                                            /* Reik padaryti kazkaip, kad linkintu su mygtuku i task lists puslapi
-    
-                                                       */
-                                                        }
+
                                                     </ButtonGroup>
                                                 </td>
                                             </tr>)
