@@ -3,7 +3,7 @@ INSERT INTO PROJECT
 VALUES
 							  (42, 'Labai įdomus projektas', 'Labai įdomus apibūdinimas', true),
 ((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas2', 'Apibudinimas2', true),
-((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', true),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', false),
 ((SELECT MAX(ID)+1  FROM PROJECT), 'Programavimo kalbos', 'Kalbos kurias mokysiuosi', true)
 ;
 
