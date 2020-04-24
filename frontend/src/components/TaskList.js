@@ -11,11 +11,12 @@ export default class TaskList extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
+            id: props.match.params.id,
             lists: []
         }
-        this.api = "http://localhost:9090/api/projects/44/tasks"; // Kazkaip perduoti reik {projectId} 
-
+        this.api = "http://localhost:9090/api/projects/44/tasks"; // Kazkaip perduoti reik {project.Id} 
 
     }
     componentDidMount() {
