@@ -1,20 +1,15 @@
 package lt.projectmanagement.userservice;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
 import lt.projectmanagement.exceptions.UserNotFoundException;
-import lt.projectmanagement.model.DisplayAllProjectModel;
-import lt.projectmanagement.model.Project;
-import lt.projectmanagement.model.ProjectPostModel;
-import lt.projectmanagement.model.Task;
-import lt.projectmanagement.model.TaskState;
+import lt.projectmanagement.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectTaskServiceImpl implements ProjectTaskService {
@@ -80,7 +75,9 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			repositoryProject.save(projectRequested);
 		} catch (Exception e) {
 			throw new UserNotFoundException("id:" + id);
+
 		}
+
 		return projectRequested;
 	}
 
