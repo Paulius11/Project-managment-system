@@ -16,7 +16,7 @@ import lt.projectmanagement.model.Task;
 import lt.projectmanagement.model.TaskPostModel;
 
 @Service
-public abstract class ProjectTaskServiceImpl implements ProjectTaskService {
+public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 	@Autowired
 	ProjectRepository repositoryProject;
@@ -105,9 +105,8 @@ public abstract class ProjectTaskServiceImpl implements ProjectTaskService {
 		return orElseThrow;
 
 	}
-	public Task createProject(TaskPostModel task) {
-		taskModel.setId(null); // Null'as yra tam, kad sukurtu nauja objekta, nenunulinus atnaujina ta pati
-									// objekta
+	public Task createTask(TaskPostModel task, Project project) {
+		taskModel.setId(project.getProjectId()); 
 		taskModel.setTaskName(task.getTaskName());
 		taskModel.setTaskDescription(task.getTaskDescription());
 		taskModel.setTaskState(task.getTaskState());
@@ -122,7 +121,7 @@ public abstract class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public void deleteTaskById(Long id, Project project) {
 		try {
-			repositoryTask.deleteById(id);
+		repositoryTask.deleteById(id);
 		} catch (Exception e) {
 			throw new UserNotFoundException("Id:" + id);
 		}

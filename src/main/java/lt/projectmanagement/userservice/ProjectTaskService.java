@@ -36,13 +36,15 @@ public interface ProjectTaskService {
 
 	Task getSpecificTask(Long projectId, Long taskId);
 
-	Task geTaskById(Long id);
+	Task geTaskById(Long taskId);
 
 	Task createTask(@Valid TaskPostModel taskPost, Project project);
 
 	Task taskUpdate(Long taskId, TaskPostModel taskPost, Project projectUpdate);
 
 	void deleteTaskById(Long id, Project project);
+
+	
 
 
 

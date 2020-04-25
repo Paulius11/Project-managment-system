@@ -12,9 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Component
 public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

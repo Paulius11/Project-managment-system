@@ -19,6 +19,7 @@ public class Project {
 	private Long id;
 	private String projectName;
 	private String projectDescription;
+	private Long projectId;
 
 	// Information about project
 	private boolean projectState;
@@ -79,11 +80,15 @@ public class Project {
 	public void setListOfTasks(List<Task> listOfTasks) {
 		this.listOfTasks = listOfTasks;
 	}
+	public Long getProjectId() {
+		return projectId;
+}
 
 	@Override
 	public String toString() {
 		return "Projectas [id=" + id + ", projectName=" + projectName + ", projectDescription=" + projectDescription
-				+ ", projectState=" + projectState + "]";
+				+ ", projectState=" + projectState + ",projectId=" + projectId +"]";
 	}
+
 
 }
