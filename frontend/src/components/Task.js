@@ -87,7 +87,7 @@ export default class Task extends Component {
 
     taskList = () => {
 
-        return this.props.history.push("/tasklist"); // App js , kai bus Task List sita reiks pakeist i /tasklist arba koks ten bus parasytas route path
+        return this.props.history.push("/tasklist");
 
     };
 
@@ -109,7 +109,7 @@ export default class Task extends Component {
                                     value={taskName}
                                     onChange={this.projectChange}
                                     className={"bg-dark text-white"}
-                                    placeholder="Enter project name" />
+                                    placeholder="Enter task name" />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridTaskDescription">
@@ -167,7 +167,7 @@ export default class Task extends Component {
                             <FontAwesomeIcon icon={faUndo} />  Reset
                         </Button>
                         <Button size="sm" variant="info" type="button" onClick={this.taskList.bind()}>
-                            <FontAwesomeIcon icon={faList} />  Project List
+                            <FontAwesomeIcon icon={faList} />  Task List
                         </Button>
                     </Card.Footer>
                 </Form>

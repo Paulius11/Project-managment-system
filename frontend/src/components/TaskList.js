@@ -9,16 +9,20 @@ import { Link } from 'react-router-dom';
 export default class TaskList extends Component {
 
 
+
     constructor(props) {
         super(props);
+        const { match: { params } } = this.props;
 
         this.state = {
-            id: props.match.params.id,
             lists: []
         }
-        this.api = "http://localhost:9090/api/projects/44/tasks"; // Kazkaip perduoti reik {project.Id} 
+
+        this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`; // Kazkaip perduoti reik {project.Id} 
+        console.log(this.api);
 
     }
+
     componentDidMount() {
 
         this.getLists();
@@ -27,11 +31,12 @@ export default class TaskList extends Component {
     }
 
     getLists() {
+
         axios.get(this.api)
             .then((data) => {
                 this.setState({ lists: data.data });
 
-                console.log(this.state);
+
             })
             .catch((error) => {
                 console.log(error)
@@ -39,15 +44,15 @@ export default class TaskList extends Component {
 
     };
 
-    deleteProject = (projectId) => {
+    deleteTask = (taskId) => {
 
-        axios.delete(this.api)
+        axios.delete(this.api + "/" + taskId)
             .then(response => {
 
                 if (response != null)
                     alert("Deleted successfully");
                 this.setState({
-                    lists: this.state.lists.filter(x => x.id !== projectId)
+                    lists: this.state.lists.filter(x => x.id !== taskId)
 
                 });
 
@@ -83,7 +88,7 @@ export default class TaskList extends Component {
                                         return (
 
                                             <tr key={task.id}>
-                                                <td>{task.id}{console.log(task.id)}</td>
+                                                <td>{task.id}</td>
                                                 <td>{task.taskName} </td>
                                                 <td>{task.taskDescription} </td>
                                                 <td>{task.taskPriority}</td>
@@ -92,9 +97,9 @@ export default class TaskList extends Component {
                                                 <td>{task.taskModifyTime}</td>
                                                 <td>
                                                     <ButtonGroup>
-                                                        <Link to={"edit/" + task.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
+                                                        <Link to={"taskedit/" + task.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
-                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, task.id)}>
+                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
                                                         <Link to={"addtask"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
 
