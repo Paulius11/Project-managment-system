@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Badge} from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import '../App.css'; 
+import '../App.css';
 
 export default class List extends Component {
 
@@ -60,7 +60,7 @@ export default class List extends Component {
                 <Card.Header><FontAwesomeIcon icon={faList} /> All projects list </Card.Header>
                 <Card.Body>
                     <Table bordered hover striped variant="dark">
-                    
+
                         <thead>
                             <tr>
                                 <td>Id</td>
@@ -80,9 +80,9 @@ export default class List extends Component {
                                                 <td>{project.id} </td>
                                                 <td>{project.projectName} </td>
                                                 <td>{project.projectDescription} </td>
-                                                <td align="center"> {project.projectState == "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge> } </td>
+                                                <td align="center"> {project.projectState == "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
                                                 <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
-                                                
+
                                                 <td>
                                                     <ButtonGroup>
                                                         <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
@@ -90,12 +90,8 @@ export default class List extends Component {
                                                         <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
                                                         <Link to={"addtask"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                                                        <Link to={"tasklist/"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
-                                                        {
-                                                            /* Reik padaryti kazkaip, kad linkintu su mygtuku i task lists puslapi
-    
-                                                       */
-                                                        }
+                                                        <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
+
                                                     </ButtonGroup>
                                                 </td>
                                             </tr>)
@@ -112,4 +108,5 @@ export default class List extends Component {
         );
 
     }
+
 }

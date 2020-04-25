@@ -1,3 +1,4 @@
+
 INSERT INTO PROJECT
 (ID, PROJECT_NAME, PROJECT_DESCRIPTION, PROJECT_STATE)
 VALUES
@@ -14,4 +15,5 @@ VALUES
 ((SELECT MAX(ID)+1  FROM TASK), 42, 'React', 'Išmokti React', 'NORMAL', current_timestamp(), current_timestamp(), 'TO_DO' ),
 ((SELECT MAX(ID)+1  FROM TASK), 44, 'Java', 'Išmokti Java', 'HIGH', current_timestamp(), current_timestamp(), 'DONE' )
 ;
+
 
