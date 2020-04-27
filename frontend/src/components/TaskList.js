@@ -18,7 +18,7 @@ export default class TaskList extends Component {
             lists: []
         }
 
-        this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`; // Kazkaip perduoti reik {project.Id} 
+        this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
         console.log(this.api);
 
     }
