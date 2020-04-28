@@ -8,6 +8,7 @@ import Project from './components/Project';
 import List from './components/List';
 import Task from './components/Task';
 import TaskList from './components/TaskList';
+import TaskEdit from './components/TaskEdit';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
 
                             <Route path="/addtask/:projectId" exact component={Task} />
                             <Route path="/tasklist/addtask" exact component={Task} />
-                            <Route path="/tasklist/taskedit/:taskId" exact component={Task} />
+                            <Route path="/tasklist/taskedit/:projectId/tasks/:taskId" exact component={TaskEdit} />
                             <Route path="/tasklist/:projectId" exact component={TaskList} />
 
                         </Switch>

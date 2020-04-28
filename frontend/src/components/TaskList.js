@@ -24,7 +24,10 @@ export default class TaskList extends Component {
 
         const x = this.api.slice(35);
 
-        const projId = x.substring(0, x.indexOf("/")); // gaunam projectId, kad galima butu ji perduoti i edit task, kad ten atsirastu projectId i post metoda (perduot ji reik i sitos klases render metoda);
+        const projId = x.substring(0, x.indexOf("/")); // gaunam projectId, kad galima butu ji perduoti i edit task, kad ten atsirastu projectId i post metoda
+        console.log(projId);
+
+
 
     }
 
@@ -106,7 +109,7 @@ export default class TaskList extends Component {
                                                 <td>{task.taskModifyTime}</td>
                                                 <td>
                                                     <ButtonGroup>
-                                                        <Link to={"taskedit/" + task.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
+                                                        <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
                                                         <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
