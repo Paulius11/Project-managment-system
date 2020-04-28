@@ -12,6 +12,8 @@ export default class Task extends Component {
         this.state = this.initialState;
         this.projectChange = this.projectChange.bind(this);
         this.submitTask = this.submitTask.bind(this);
+        const { match: { params } } = this.props;
+        this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
     }
 
 
@@ -25,7 +27,7 @@ export default class Task extends Component {
 
         event.preventDefault();
 
-        const project = {
+        const task = {
             taskName: this.state.taskName,
             taskDescription: this.state.taskDescription,
             taskPriority: this.state.taskPriority,
@@ -34,7 +36,7 @@ export default class Task extends Component {
             taskCreateTime: this.state.taskCreateTime
         };
 
-        axios.post("http://localhost:9090/api/projects", project)
+        axios.post(this.api, task)
             .then(response => {
                 if (response.data != null) {
                     this.setState(this.initialState);
@@ -52,9 +54,9 @@ export default class Task extends Component {
     };
 
 
-    findProjectById = (taskId) => {
+    findProjectById = (projectId) => {
 
-        axios.get("http://localhost:9090/api/projects/" + taskId) // Reiks pakeist link
+        axios.get("http://localhost:9090/api/projects/" + projectId + "/tasks") // Reiks pakeist link
             .then(response => {
                 this.setState({
                     taskName: response.data.taskName,
@@ -161,14 +163,14 @@ export default class Task extends Component {
                     <Card.Footer>
                         <Button size="sm" variant="success" type="submit">
                             <FontAwesomeIcon icon={faSave} />  Submit
-                        </Button>{''}
+                        </Button>{' '}
 
                         <Button size="sm" variant="info" type="reset">
                             <FontAwesomeIcon icon={faUndo} />  Reset
-                        </Button>
+                        </Button>{' '}
                         <Button size="sm" variant="info" type="button" onClick={this.taskList.bind()}>
                             <FontAwesomeIcon icon={faList} />  Task List
-                        </Button>
+                        </Button>{' '}
                     </Card.Footer>
                 </Form>
             </Card >

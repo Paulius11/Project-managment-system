@@ -14,14 +14,20 @@ export default class TaskList extends Component {
         super(props);
         const { match: { params } } = this.props;
 
+
+
         this.state = {
             lists: []
         }
 
         this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
-        console.log(this.api);
+
+        const x = this.api.slice(35);
+
+        const projId = x.substring(0, x.indexOf("/")); // gaunam projectId, kad galima butu ji perduoti i edit task, kad ten atsirastu projectId i post metoda (perduot ji reik i sitos klases render metoda);
 
     }
+
 
     componentDidMount() {
 
@@ -29,6 +35,7 @@ export default class TaskList extends Component {
 
 
     }
+
 
     getLists() {
 
@@ -62,6 +69,8 @@ export default class TaskList extends Component {
 
     render() {
         const { lists } = this.state;
+
+
 
         return (
 
