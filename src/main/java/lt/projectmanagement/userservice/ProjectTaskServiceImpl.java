@@ -22,6 +22,9 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 	@Autowired
 	Project projectModel;
+	
+	@Autowired 
+	Task taskModel;
 
 	@Override
 	public Project createProject(ProjectPostModel project) {
@@ -95,7 +98,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		return findProjectById;
 	}
 
-	@Override
+	
 	public List<Task> getAllTasks(Long projectId) {
 		Optional<Project> project = getProjectById(projectId);
 		return project.get().getListOfTasks();
@@ -109,5 +112,46 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		return orElseThrow;
 
 	}
-
+	public Task createTask(TaskPostModel task, Project project) {
+		taskModel.setId(null); 
+		taskModel.setProject(project);
+		taskModel.setProjectPriority(task.getTaskPriority());
+		taskModel.setTaskName(task.getTaskName());
+		taskModel.setTaskDescription(task.getTaskDescription());
+		taskModel.setTaskState(task.getTaskState());
+		return repositoryTask.save(taskModel);
 }
+	public List<Task> getAllTasks() {
+		List<Task> listOfTasks = new ArrayList<>();
+		Iterable<Task> findAllTasks = repositoryTask.findAll();
+		findAllTasks.forEach(listOfTasks::add);
+		return listOfTasks;
+	}
+	@Override
+	public void deleteTaskById(Long id, Project project) {
+		try {
+		repositoryTask.deleteById(id);
+		} catch (Exception e) {
+			throw new UserNotFoundException("Id:" + id);
+		}
+		}
+		@Override
+		public Task taskUpdate(Long id, TaskPostModel taskPost, Project project) {
+			Optional<Task> foundTask = repositoryTask.findById(id);
+			Task taskRequested = foundTask.get();
+			taskRequested.setTaskName(taskPost.getTaskName());
+			taskRequested.setTaskDescription(taskPost.getTaskDescription());
+			taskRequested.setTaskState(taskPost.getTaskState());
+			try {
+				repositoryTask.save(taskRequested);
+			} catch (Exception e) {
+				throw new UserNotFoundException("id:" + id);
+			}
+			return taskRequested;
+		}
+		@Override
+		public Task geTaskById(Long id) {
+			Optional<Task> findById = repositoryTask.findById(id);
+			return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
+		}
+	}
