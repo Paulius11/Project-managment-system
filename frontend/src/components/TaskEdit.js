@@ -40,7 +40,7 @@ export default class TaskEdit extends Component {
             taskCreateTime: this.state.taskCreateTime
         };
 
-        axios.post(this.api, task)
+        axios.put(this.api, task)
             .then(response => {
                 if (response.data != null) {
                     this.setState(this.initialState);
@@ -166,7 +166,7 @@ export default class TaskEdit extends Component {
                     </Card.Body>
                     <Card.Footer>
                         <Button size="sm" variant="success" type="submit">
-                            <FontAwesomeIcon icon={faSave} />  Submit
+                            <FontAwesomeIcon icon={faSave} />  Save
                         </Button>{' '}
 
                         <Button size="sm" variant="info" type="reset">
