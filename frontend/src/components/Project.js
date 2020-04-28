@@ -132,15 +132,6 @@ export default class Project extends Component {
                                     <option>Done</option>
                                 </Form.Control>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formGridProjectId">
-                                <Form.Label>Project Id</Form.Label>
-                                <Form.Control required autoComplete="off"
-                                    type="text" name="projectId"
-                                    value={projectId}
-                                    onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Status" />
-                            </Form.Group>
                         </Form.Row>
 
 

@@ -9,6 +9,7 @@ import List from './components/List';
 import Task from './components/Task';
 import TaskList from './components/TaskList';
 import TaskEdit from './components/TaskEdit';
+import ProjectEdit from './components/ProjectEdit';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
 
 
                             <Route path="/add" exact component={Project} />
-                            <Route path="/edit/:projectId" exact component={Project} />
+                            <Route path="/edit/:projectId" exact component={ProjectEdit} />
                             <Route path="/list" exact component={List} />
 
                             <Route path="/addtask/:projectId" exact component={Task} />

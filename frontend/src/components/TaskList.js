@@ -22,12 +22,6 @@ export default class TaskList extends Component {
 
         this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
 
-        const x = this.api.slice(35);
-
-        const projId = x.substring(0, x.indexOf("/")); // gaunam projectId, kad galima butu ji perduoti i edit task, kad ten atsirastu projectId i post metoda
-        console.log(projId);
-
-
 
     }
 
