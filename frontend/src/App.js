@@ -32,8 +32,9 @@ function App() {
                             <Route path="/edit/:projectId" exact component={Project} />
                             <Route path="/list" exact component={List} />
 
-                            <Route path="/taskedit/:taskId" exact component={Task} />
-                            <Route path="/addTask" exact component={Task} />
+                            <Route path="/addtask/:projectId" exact component={Task} />
+                            <Route path="/tasklist/addtask" exact component={Task} />
+                            <Route path="/tasklist/taskedit/:taskId" exact component={Task} />
                             <Route path="/tasklist/:projectId" exact component={TaskList} />
 
                         </Switch>

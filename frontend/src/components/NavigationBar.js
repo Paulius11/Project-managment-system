@@ -12,7 +12,7 @@ class NavigationBar extends React.Component {
 
 			<Navbar bg="success" variant="dark">
 				<Link to={""} className="navbar-brand">
-					<FontAwesomeIcon icon={faBriefcase} />
+					<FontAwesomeIcon icon={faBriefcase} />{' '}
 					<Navbar.Brand href="#home"> Project management system</Navbar.Brand>
 				</Link>
 

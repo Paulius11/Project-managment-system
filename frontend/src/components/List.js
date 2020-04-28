@@ -89,7 +89,7 @@ export default class List extends Component {
 
                                                         <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
-                                                        <Link to={"addtask"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                                                        <Link to={"addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                                                         <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
 
                                                     </ButtonGroup>
