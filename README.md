@@ -2,7 +2,7 @@
 Projektų užduočių valdymo programa
 
 ### Svetaine prieinama
-http://localhost:9090/api/project
+http://localhost:3000/
 
 
  Būtinas padaryti dalykas pirma karta pasicloninus repozitoriją frontend aplanke iškviesti konsolę ir įrašyti komandą "npm install"
