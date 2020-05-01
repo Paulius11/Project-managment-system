@@ -150,7 +150,7 @@ export default class Project extends Component {
 
                     </Card.Footer>
                 </Form>
-            </Card>
+            </Card >
         );
 
     }
