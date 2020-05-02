@@ -54,6 +54,8 @@ export default class List extends Component {
     };
 
 
+
+
     handleSearchInput = (e) => {
         console.log(e.target.value);
         this.setState({
@@ -72,15 +74,18 @@ export default class List extends Component {
             x.projectName.toLowerCase().includes(this.state.search.toLowerCase())
         })
         */
+        var divStyle = {
+            width: '33%'
+        };
 
         return (
 
-            < Card className={"border border-dark bg-dark text-white"} >
+            <Card className={"border border-dark bg-dark text-white"} >
                 <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
                     <Form>
                         <Form.Row>
 
-                            <Form.Control onChange={this.handleSearchInput} placeholder="Search ..." />
+                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
 
                         </Form.Row>
 
