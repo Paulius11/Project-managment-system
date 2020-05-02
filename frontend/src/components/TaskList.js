@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button, Form, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -17,7 +17,8 @@ export default class TaskList extends Component {
 
 
         this.state = {
-            lists: []
+            lists: [],
+            search: ''
         }
 
         this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
@@ -64,16 +65,43 @@ export default class TaskList extends Component {
 
     };
 
+    handleSearchInput = (e) => {
+        console.log(e.target.value);
+        this.setState({
+            search: e.target.value,
+            lists: this.state.lists.filter((p) => {
+                return p.taskName.toLowerCase().includes(this.state.search.toLowerCase())
+            })
+        })
+    };
+
     render() {
         const { lists } = this.state;
 
+        var divStyle = {
+            width: '33%'
+        };
 
 
         return (
 
             < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Header><FontAwesomeIcon icon={faList} />  Task list </Card.Header>
+                <Card.Header><FontAwesomeIcon icon={faList} />  Task list
+                      <Form>
+                        <Form.Row>
+
+                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
+
+                        </Form.Row>
+
+                    </Form>
+
+                </Card.Header>
+
+
+
                 <Card.Body>
+
                     <Table bordered hover striped variant="dark">
                         <thead>
                             <tr>

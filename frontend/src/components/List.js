@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Badge } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Badge, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -12,7 +12,8 @@ export default class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lists: []
+            lists: [],
+            search: ''
         }
         this.api = "http://localhost:9090/api/projects";
 
@@ -52,12 +53,44 @@ export default class List extends Component {
 
     };
 
+
+
+
+    handleSearchInput = (e) => {
+        console.log(e.target.value);
+        this.setState({
+            search: e.target.value,
+            lists: this.state.lists.filter((p) => {
+                return p.projectName.toLowerCase().includes(this.state.search.toLowerCase())
+            })
+        })
+    };
+
     render() {
+
         const { lists } = this.state;
+        /*
+        let lists = this.state.lists.filter((x) => {
+            x.projectName.toLowerCase().includes(this.state.search.toLowerCase())
+        })
+        */
+        var divStyle = {
+            width: '33%'
+        };
+
         return (
 
-            < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Header><FontAwesomeIcon icon={faList} /> All projects list </Card.Header>
+            <Card className={"border border-dark bg-dark text-white"} >
+                <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
+                    <Form>
+                        <Form.Row>
+
+                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
+
+                        </Form.Row>
+
+                    </Form>
+                </Card.Header>
                 <Card.Body>
                     <Table bordered hover striped variant="dark">
 
