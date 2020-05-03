@@ -92,8 +92,8 @@ export default class TaskEdit extends Component {
     }
 
     taskList = () => {
-
-        return this.props.history.push("/tasklist");
+        const projectId = this.props.match.params.projectId;
+        return this.props.history.push("/tasklist/" + projectId);
 
     };
 
