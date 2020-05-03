@@ -67,6 +67,9 @@ export default class TaskList extends Component {
 
     handleSearchInput = (e) => {
         console.log(e.target.value);
+        if (e.target.value === '') {
+            this.getLists();
+        }
         this.setState({
             search: e.target.value,
             lists: this.state.lists.filter((p) => {
