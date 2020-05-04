@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Badge } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../App.css';
+
 
 export default class List extends Component {
 
@@ -12,7 +13,10 @@ export default class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lists: []
+            lists: [],
+            search: '',
+            currentPage: 1,
+            postsPerPage: 3
         }
         this.api = "http://localhost:9090/api/projects";
 
@@ -52,12 +56,80 @@ export default class List extends Component {
 
     };
 
+
+
+
+    handleSearchInput = (e) => {
+        console.log(e.target.value);
+        if (e.target.value === '') {
+            this.getLists();
+        }
+        this.setState({
+            currentPage: 1,
+            search: e.target.value,
+            lists: this.state.lists.filter((p) => {
+                return p.projectName.toLowerCase().includes(this.state.search.toLowerCase())
+            })
+        })
+    };
+
+    
+    paginate = (page)  => {
+        this.setState({currentPage: page})
+        console.log(this.state.currentPage)
+    }
+
     render() {
+
         const { lists } = this.state;
+        /*
+        let lists = this.state.lists.filter((x) => {
+            x.projectName.toLowerCase().includes(this.state.search.toLowerCase())
+        })
+        */
+        var divStyle = {
+            width: '33%'
+        };
+
+
+        // Get current posts -- pagination
+        const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
+        const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
+        const currentPosts = lists.slice(indexOfFirstPost, indexOfLastPost);
+
+
+        let items = [];
+        for (let number = 1; number <= Math.ceil(lists.length/this.state.postsPerPage); number++) {
+            items.push(
+                <Pagination.Item onClick={() => this.paginate(number)} key={number} >
+                    {number}
+                </Pagination.Item>,
+            );
+        }
+
+        const paginationBasic = (
+            <div>
+                <Pagination bsPrefix={'custom-pagination'}>{items}</Pagination>
+
+            </div>
+        );
+
+
+
         return (
 
-            < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Header><FontAwesomeIcon icon={faList} /> All projects list </Card.Header>
+            <Card className={"border border-dark bg-dark text-white"} >
+
+                <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
+                    <Form>
+                        <Form.Row>
+
+                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
+
+                        </Form.Row>
+
+                    </Form>
+                </Card.Header>
                 <Card.Body>
                     <Table bordered hover striped variant="dark">
 
@@ -74,7 +146,7 @@ export default class List extends Component {
                         <tbody>
                             {
                                 lists.length ?
-                                    lists.map(project => {
+                                    currentPosts.map(project => {
                                         return (
                                             <tr key={project.id}>
                                                 <td>{project.id} </td>
@@ -100,11 +172,25 @@ export default class List extends Component {
                                     null
 
                             }
+                            <br />
+
+
                         </tbody>
 
                     </Table>
                 </Card.Body>
+
+                <Container>
+
+                    <Row>
+                        <Col md={{ span: 3, offset: 5 }}> {paginationBasic}</Col>
+
+                    </Row>
+
+                </Container>
             </Card >
+
+
         );
 
     }
