@@ -2,6 +2,7 @@ package lt.projectmanagement.model;
 
 import java.time.LocalDateTime;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,12 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Component
+
 public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,19 +43,18 @@ public class Task {
 	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
 
-	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private LocalDateTime taskCreateTime;
 
-	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	private LocalDateTime taskModifyTime = LocalDateTime.now();
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
-
-	public Task() {taskCreateTime = LocalDateTime.now();
-	}; 
 	
+	public Task() {taskCreateTime = LocalDateTime.now();
+	}
 
 	public Task(Long id, String taskName, String taskDescription, TaskPriorityLevel taskPriority, TaskState taskState,
 			LocalDateTime taskModifyTime) {
