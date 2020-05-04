@@ -3,8 +3,11 @@ import { Card, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faUndo, faSitemap, faList } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../App.css';
 
-
+toast.configure()
 export default class Project extends Component {
 
     constructor(props) {
@@ -36,6 +39,7 @@ export default class Project extends Component {
                 if (response.data != null) {
                     this.setState(this.initialState);
                 }
+                toast.success("Project added successfully")
             });
 
 
@@ -77,7 +81,8 @@ export default class Project extends Component {
     }
     resetProject = () => {
 
-        this.setState(() => this.initialState)
+        this.setState(() => this.initialState);
+        toast.warn("All fields have been reseted!")
     }
 
     projectList = () => {
@@ -129,7 +134,6 @@ export default class Project extends Component {
                                     <option></option>
                                     <option>Not started</option>
                                     <option>In progress</option>
-                                    <option>Done</option>
                                 </Form.Control>
                             </Form.Group>
                         </Form.Row>
@@ -141,7 +145,7 @@ export default class Project extends Component {
                             <FontAwesomeIcon icon={faSave} />  Submit
                         </Button>{'  '}
 
-                        <Button size="sm" variant="info" type="reset">
+                        <Button size="sm" variant="info" type="reset" >
                             <FontAwesomeIcon icon={faUndo} />  Reset
                         </Button>{'  '}
                         <Button size="sm" variant="info" type="button" onClick={this.projectList.bind()}>

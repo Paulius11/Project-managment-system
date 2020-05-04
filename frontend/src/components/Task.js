@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Col } from 'react-bootstrap';
+import { Card, Form, Button, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faUndo, faSitemap, faList } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../App.css';
 
-
+toast.configure()
 export default class Task extends Component {
 
     constructor(props) {
@@ -40,6 +43,7 @@ export default class Task extends Component {
             .then(response => {
                 if (response.data != null) {
                     this.setState(this.initialState);
+                    toast.success("New task addedd successfully!")
                 }
             });
 
@@ -85,11 +89,12 @@ export default class Task extends Component {
     resetTask = () => {
 
         this.setState(() => this.initialState)
+        toast.warn("All forms have been reseted!")
     }
 
     taskList = () => {
-
-        return this.props.history.push("/tasklist");
+        const projectId = this.props.match.params.projectId;
+        return this.props.history.push("/tasklist/" + projectId);
 
     };
 
@@ -97,6 +102,7 @@ export default class Task extends Component {
     render() {
 
         const { taskName, taskDescription, taskState, taskPriority, taskCreateTime, taskModifyTime } = this.state;
+
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header> <FontAwesomeIcon icon={faSitemap} /> Add new task </Card.Header>
@@ -152,7 +158,6 @@ export default class Task extends Component {
                                     <option></option>
                                     <option>TO_DO</option>
                                     <option>IN_PROGRESS</option>
-                                    <option>DONE</option>
                                 </Form.Control >
                             </Form.Group>
                         </Form.Row>

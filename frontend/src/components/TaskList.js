@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Form, Row } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
+toast.configure()
 export default class TaskList extends Component {
 
 
@@ -55,7 +58,7 @@ export default class TaskList extends Component {
             .then(response => {
 
                 if (response != null)
-                    alert("Deleted successfully");
+                    toast.warn("Task has been deleted successfully")
                 this.setState({
                     lists: this.state.lists.filter(x => x.id !== taskId)
 
@@ -78,6 +81,7 @@ export default class TaskList extends Component {
         })
     };
 
+
     render() {
         const { lists } = this.state;
 
@@ -90,7 +94,10 @@ export default class TaskList extends Component {
 
             < Card className={"border border-dark bg-dark text-white"} >
                 <Card.Header><FontAwesomeIcon icon={faList} />  Task list
-                      <Form>
+
+                    <Form>
+
+                        <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task<FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                         <Form.Row>
 
                             <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
@@ -134,11 +141,12 @@ export default class TaskList extends Component {
                                                 <td>{task.taskModifyTime}</td>
                                                 <td>
                                                     <ButtonGroup>
-                                                        <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
+                                                        <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id}
+                                                            className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
                                                         <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
-                                                        <Link to={"addtask"} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+
 
                                                     </ButtonGroup>
                                                 </td>
