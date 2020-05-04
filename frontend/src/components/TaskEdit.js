@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Col } from 'react-bootstrap';
+import { Card, Form, Button, Col, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faUndo, faSitemap, faList } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
+toast.configure()
 export default class TaskEdit extends Component {
 
     constructor(props) {
@@ -15,7 +18,7 @@ export default class TaskEdit extends Component {
         const { match: { params } } = this.props;
 
         this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks/${params.taskId}`;
-        console.log(this.api);
+
 
 
     }
@@ -78,6 +81,13 @@ export default class TaskEdit extends Component {
             });
 
     };
+    successToast = () => {
+        toast.success("Task has been updated successfully!")
+    }
+    resetToast = () => {
+        toast.warn("All fields have been reseted!")
+    }
+
 
 
     projectChange = (event) => {
@@ -85,11 +95,12 @@ export default class TaskEdit extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-    }
+    };
+
     resetTask = () => {
 
         this.setState(() => this.initialState)
-    }
+    };
 
     taskList = () => {
         const projectId = this.props.match.params.projectId;
@@ -101,6 +112,7 @@ export default class TaskEdit extends Component {
     render() {
 
         const { taskName, taskDescription, taskState, taskPriority, taskCreateTime, taskModifyTime } = this.state;
+
         return (
             <Card className={"border border-dark bg-dark text-white"}>
                 <Card.Header> <FontAwesomeIcon icon={faSitemap} /> Edit task </Card.Header>
@@ -127,7 +139,6 @@ export default class TaskEdit extends Component {
                                     className={"bg-dark text-white"}
                                     placeholder="Description" />
                             </Form.Group>
-
 
                         </Form.Row>
                         <Form.Row>
@@ -165,11 +176,11 @@ export default class TaskEdit extends Component {
 
                     </Card.Body>
                     <Card.Footer>
-                        <Button size="sm" variant="success" type="submit">
+                        <Button size="sm" variant="success" type="submit" onClick={this.successToast} >
                             <FontAwesomeIcon icon={faSave} />  Save
                         </Button>{' '}
 
-                        <Button size="sm" variant="info" type="reset">
+                        <Button size="sm" variant="info" type="reset" onClick={this.resetToast}>
                             <FontAwesomeIcon icon={faUndo} />  Reset
                         </Button>{' '}
                         <Button size="sm" variant="info" type="button" onClick={this.taskList.bind()}>

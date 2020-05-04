@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 
-
+toast.configure()
 export default class List extends Component {
 
 
@@ -44,20 +46,18 @@ export default class List extends Component {
 
         axios.delete(this.api + "/" + projectId)
             .then(response => {
-
+                toast.success("Project has been deleted successfully")
                 if (response != null)
-                    alert("Deleted successfully");
-                this.setState({
-                    lists: this.state.lists.filter(x => x.id !== projectId)
 
-                });
+                    this.setState({
+                        lists: this.state.lists.filter(x => x.id !== projectId)
+
+                    });
 
             });
 
+
     };
-
-
-
 
     handleSearchInput = (e) => {
         console.log(e.target.value);
@@ -73,20 +73,15 @@ export default class List extends Component {
         })
     };
 
-    
-    paginate = (page)  => {
-        this.setState({currentPage: page})
+    paginate = (page) => {
+        this.setState({ currentPage: page })
         console.log(this.state.currentPage)
     }
+
 
     render() {
 
         const { lists } = this.state;
-        /*
-        let lists = this.state.lists.filter((x) => {
-            x.projectName.toLowerCase().includes(this.state.search.toLowerCase())
-        })
-        */
         var divStyle = {
             width: '33%'
         };
@@ -99,7 +94,7 @@ export default class List extends Component {
 
 
         let items = [];
-        for (let number = 1; number <= Math.ceil(lists.length/this.state.postsPerPage); number++) {
+        for (let number = 1; number <= Math.ceil(lists.length / this.state.postsPerPage); number++) {
             items.push(
                 <Pagination.Item onClick={() => this.paginate(number)} key={number} >
                     {number}
@@ -113,8 +108,6 @@ export default class List extends Component {
 
             </div>
         );
-
-
 
         return (
 
@@ -161,7 +154,7 @@ export default class List extends Component {
 
                                                         <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
                                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
-                                                        <Link to={"addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                                                        <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                                                         <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
 
                                                     </ButtonGroup>
