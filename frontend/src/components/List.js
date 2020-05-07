@@ -59,19 +59,34 @@ export default class List extends Component {
 
     };
 
+    setInitialState() {
+        this.setState({ lists: this.state.listTemp });
+    }
+
     handleSearchInput = (e) => {
-        console.log(e.target.value);
-        if (e.target.value === '') {
-            this.getLists();
-        }
-        this.setState({
-            currentPage: 1,
-            search: e.target.value,
-            lists: this.state.lists.filter((p) => {
+
+        let {value} = e.target;
+        if (value === '') {
+            this.setInitialState()
+
+        } else {
+            this.setState({search: e.target.value})
+            console.log(value);
+
+            let filtered = this.state.listTemp.filter((p) => {
                 return p.projectName.toLowerCase().includes(this.state.search.toLowerCase())
             })
-        })
-    };
+
+            this.setState({
+                currentPage: 1,
+                lists: filtered
+            })
+        }
+    }
+
+    handleSearchPrepare = () => {
+        this.setState({ listTemp: [...this.state.lists] })
+    }
 
     paginate = (page) => {
         this.setState({ currentPage: page })
@@ -117,7 +132,7 @@ export default class List extends Component {
                     <Form>
                         <Form.Row>
 
-                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
+                            <Form.Control style={divStyle} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
 
                         </Form.Row>
 
