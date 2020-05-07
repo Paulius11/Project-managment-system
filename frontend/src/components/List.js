@@ -65,18 +65,14 @@ export default class List extends Component {
 
     handleSearchInput = (e) => {
 
-        let {value} = e.target;
+        let { value } = e.target;
         if (value === '') {
             this.setInitialState()
 
         } else {
-            this.setState({search: e.target.value})
-            console.log(value);
-
             let filtered = this.state.listTemp.filter((p) => {
-                return p.projectName.toLowerCase().includes(this.state.search.toLowerCase())
+                return p.projectName.toLowerCase().includes(value)
             })
-
             this.setState({
                 currentPage: 1,
                 lists: filtered
@@ -124,6 +120,36 @@ export default class List extends Component {
             </div>
         );
 
+        const listOfItems =
+            (
+                lists.length ?
+                    currentPosts.map(project => {
+                        return (
+                            <tr key={project.id}>
+                                <td>{project.id} </td>
+                                <td>{project.projectName} </td>
+                                <td>{project.projectDescription} </td>
+                                <td align="center"> {project.projectState === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
+                                <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
+
+                                <td>
+                                    <ButtonGroup>
+                                        <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
+
+                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
+                                            <FontAwesomeIcon icon={faTrash} /> </Button>{''}
+                                        <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                                        <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
+
+                                    </ButtonGroup>
+                                </td>
+                            </tr>)
+                    })
+                    :
+                    null
+
+            )
+
         return (
 
             <Card className={"border border-dark bg-dark text-white"} >
@@ -152,37 +178,8 @@ export default class List extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                lists.length ?
-                                    currentPosts.map(project => {
-                                        return (
-                                            <tr key={project.id}>
-                                                <td>{project.id} </td>
-                                                <td>{project.projectName} </td>
-                                                <td>{project.projectDescription} </td>
-                                                <td align="center"> {project.projectState == "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
-                                                <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
-
-                                                <td>
-                                                    <ButtonGroup>
-                                                        <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
-
-                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
-                                                            <FontAwesomeIcon icon={faTrash} /> </Button>{''}
-                                                        <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                                                        <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
-
-                                                    </ButtonGroup>
-                                                </td>
-                                            </tr>)
-                                    })
-                                    :
-                                    null
-
-                            }
+                            {listOfItems}
                             <br />
-
-
                         </tbody>
 
                     </Table>
