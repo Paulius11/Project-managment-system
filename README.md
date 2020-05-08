@@ -12,7 +12,7 @@ http://localhost:3000/
 https://gist.github.com/CristinaSolana/1885435
 
 #### Swager API
-http://localhost:9090/swagger-ui.htm 
+http://localhost:9090/swagger-ui.html
 ####  H2 database
 http://localhost:9090/h2-console
 
