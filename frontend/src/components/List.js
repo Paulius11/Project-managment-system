@@ -156,6 +156,7 @@ export default class List extends Component {
 
                 <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
                     <Form>
+                    <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project<FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                         <Form.Row>
 
                             <Form.Control style={divStyle} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
