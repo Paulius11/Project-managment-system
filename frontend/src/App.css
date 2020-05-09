@@ -15,3 +15,13 @@
     /* background-color: #fff; */
     border: 1px solid #17324d;
   }
+
+  .centerText {
+    display: flex;
+    justify-content: center;
+  }
+
+  .alighnLeft {
+    display: flex;
+    justify-content: space-between;
+  }

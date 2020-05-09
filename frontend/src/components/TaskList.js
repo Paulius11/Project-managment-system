@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Form } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Button, Form, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -81,10 +81,43 @@ export default class TaskList extends Component {
         })
     };
 
+    getItems = (taskState) => (
+        this.state.lists.length ?
+            this.state.lists.map(task => {
+                if (task.taskState == taskState)
+                    return (
+                        <Card border="secondary" bg={"dark"} text={"white"} >
+                        <tr className={"alighnLeft"} key={task.id}>
+                           
+
+                            <Card.Body>
+                            <Card.Title>{task.taskName}  </Card.Title>
+                            <td></td> 
+                            <Card.Text>{task.taskDescription} <br/> {task.taskState} </Card.Text>
+                            </Card.Body>
+
+
+                            <td>
+                                <ButtonGroup >
+                                    <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id}
+                                        className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
+
+                                    <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
+                                        <FontAwesomeIcon icon={faTrash} /> </Button>{''}
+
+
+                                </ButtonGroup>
+                            </td>
+                        </tr>
+                        </Card>)
+            })
+            :
+            null
+
+    )
+
 
     render() {
-        const { lists } = this.state;
-
         var divStyle = {
             width: '33%'
         };
@@ -92,75 +125,53 @@ export default class TaskList extends Component {
 
         return (
 
-            < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Header><FontAwesomeIcon icon={faList} />  Task list
+            <Container>
+
+
+                < Card className={"border border-dark bg-dark text-white"} >
+                    <Card.Header><FontAwesomeIcon icon={faList} />  Task list
 
                     <Form>
 
-                        <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task<FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                        <Form.Row>
+                            <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task<FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                            <Form.Row>
 
-                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
+                                <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
 
-                        </Form.Row>
+                            </Form.Row>
 
-                    </Form>
+                        </Form>
 
-                </Card.Header>
-
-
-
-                <Card.Body>
-
-                    <Table bordered hover striped variant="dark">
-                        <thead>
-                            <tr>
-                                <td>Task Id</td>
-                                <td>Task Name</td>
-                                <td>Task Description</td>
-                                <td>Task Status</td>
-                                <td>Task Priority</td>
-                                <td>Task Create Time</td>
-                                <td>Task Modify Time</td>
-                                <td>Actions</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                lists.length ?
-                                    lists.map(task => {
-                                        return (
-
-                                            <tr key={task.id}>
-                                                <td>{task.id}</td>
-                                                <td>{task.taskName} </td>
-                                                <td>{task.taskDescription} </td>
-                                                <td>{task.taskPriority}</td>
-                                                <td>{task.taskState} </td>
-                                                <td>{task.taskCreateTime}</td>
-                                                <td>{task.taskModifyTime}</td>
-                                                <td>
-                                                    <ButtonGroup>
-                                                        <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id}
-                                                            className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
-
-                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
-                                                            <FontAwesomeIcon icon={faTrash} /> </Button>{''}
+                    </Card.Header>
 
 
-                                                    </ButtonGroup>
-                                                </td>
-                                            </tr>)
-                                    })
-                                    :
-                                    null
 
-                            }
-                        </tbody>
+                    <Card.Body>
 
-                    </Table>
-                </Card.Body>
-            </Card >
+                        <Row style={{ border: '1px solid #49a75f0d' }}>
+
+                            <Col >
+                                <th className={"centerText"} >To do </th>
+                                <br />
+                                {this.getItems("TO_DO")}
+
+                            </Col>
+                            <Col>
+                                <th className={"centerText"}>In progress </th>
+                                <br />
+                                {this.getItems("IN_PROGRESS")}
+                            </Col>
+                            <Col>
+                                <th className={"centerText"}> Done </th>
+                                <br />
+                                {this.getItems("DONE")}
+                            </Col>
+                        </Row>
+
+
+                    </Card.Body>
+                </Card >
+            </Container>
         );
 
     }
