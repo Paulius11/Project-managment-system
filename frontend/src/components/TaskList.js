@@ -133,7 +133,7 @@ export default class TaskList extends Component {
 
                     <Form>
 
-                            <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task<FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                            
                             <Form.Row>
 
                                 <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
@@ -147,7 +147,7 @@ export default class TaskList extends Component {
 
 
                     <Card.Body>
-
+                    <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                         <Row style={{ border: '1px solid #49a75f0d' }}>
 
                             <Col >
