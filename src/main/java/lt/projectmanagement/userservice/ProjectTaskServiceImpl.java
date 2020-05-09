@@ -115,7 +115,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	public Task createTask(TaskPostModel task, Project project) {
 		taskModel.setId(null); 
 		taskModel.setProject(project);
-		taskModel.setProjectPriority(task.getTaskPriority());
+		taskModel.setTaskPriority(task.getTaskPriority());
 		taskModel.setTaskName(task.getTaskName());
 		taskModel.setTaskDescription(task.getTaskDescription());
 		taskModel.setTaskState(task.getTaskState());
