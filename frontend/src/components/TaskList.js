@@ -90,7 +90,7 @@ export default class TaskList extends Component {
             this.state.lists.map(task => {
                 if (task.taskState == taskState)
                     return (
-                        <TaskElement task={task} list={this.state.lists} projectid={this.props.match.params.projectId} api={this.api} deleteTask={this.deleteTask} />
+                        <TaskElement key={task.id} task={task} list={this.state.lists} projectid={this.props.match.params.projectId} api={this.api} deleteTask={this.deleteTask} />
                     )
             })
             :
@@ -133,18 +133,18 @@ export default class TaskList extends Component {
                         <Row style={{ border: '1px solid #49a75f0d' }}>
 
                             <Col >
-                                <th className={"centerText"} >To do </th>
+                                <div className={"centerText"} >To do </div>
                                 <br />
                                 {this.getTaskItems("TO_DO")}
 
                             </Col>
                             <Col>
-                                <th className={"centerText"}>In progress </th>
+                                <div className={"centerText"}>In progress </div>
                                 <br />
                                 {this.getTaskItems("IN_PROGRESS")}
                             </Col>
                             <Col>
-                                <th className={"centerText"}> Done </th>
+                                <div className={"centerText"}> Done </div>
                                 <br />
                                 {this.getTaskItems("DONE")}
                             </Col>
