@@ -26,7 +26,7 @@ export default class TaskElement extends Component {
                     <Card.Body>
                         <Card.Title>{this.props.task.taskName}  </Card.Title>
                         <td></td>
-                        <Card.Text>{this.props.task.taskDescription} <br /> {this.props.task.taskState} </Card.Text>
+                        <Card.Text>{this.props.task.taskDescription} </Card.Text>
                     </Card.Body>
                     <td>
                         <ButtonGroup >
