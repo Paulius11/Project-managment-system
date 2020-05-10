@@ -10,13 +10,6 @@ import TaskElementPopup from "./TaskElementPopup"
 
 export default class TaskElement extends Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
-
-
     render() {
         return (
             <Card border="secondary" bg={"dark"} text={"white"} className={"mb-1"}>
