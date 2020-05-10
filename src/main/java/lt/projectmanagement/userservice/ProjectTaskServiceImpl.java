@@ -141,6 +141,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			taskRequested.setTaskName(taskPost.getTaskName());
 			taskRequested.setTaskDescription(taskPost.getTaskDescription());
 			taskRequested.setTaskState(taskPost.getTaskState());
+			taskRequested.setTaskPriority(taskPost.getTaskPriority());
+
 			try {
 				repositoryTask.save(taskRequested);
 			} catch (Exception e) {
