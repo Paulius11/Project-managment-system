@@ -74,7 +74,7 @@ export default class TaskList extends Component {
             .then(response => {
 
                 if (response != null)
-                    toast.warn("Task has been deleted successfully")
+                    toast.warn("✔️ Task has been deleted successfully ")
                 this.setState({
                     lists: this.state.lists.filter(x => x.id !== taskId)
 
