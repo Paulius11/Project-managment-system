@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Form, Container, Row, Col } from 'react-bootstrap';
+import { Card, Form, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import { faList, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import TaskElement from './TaskElement'
 
 toast.configure()
 export default class TaskList extends Component {
@@ -52,21 +52,7 @@ export default class TaskList extends Component {
 
     };
 
-    deleteTask = (taskId) => {
 
-        axios.delete(this.api + "/" + taskId)
-            .then(response => {
-
-                if (response != null)
-                    toast.warn("Task has been deleted successfully")
-                this.setState({
-                    lists: this.state.lists.filter(x => x.id !== taskId)
-
-                });
-
-            });
-
-    };
 
     handleSearchInput = (e) => {
         console.log(e.target.value);
@@ -81,35 +67,31 @@ export default class TaskList extends Component {
         })
     };
 
-    getItems = (taskState) => (
+    deleteTask = (taskId) => {
+        let uri = this.api + "/" + taskId
+        console.log(uri)
+        axios.delete(uri)
+            .then(response => {
+
+                if (response != null)
+                    toast.warn("Task has been deleted successfully")
+                this.setState({
+                    lists: this.state.lists.filter(x => x.id !== taskId)
+
+                });
+
+            });
+
+    };
+
+
+    getTaskItems = (taskState) => (
         this.state.lists.length ?
             this.state.lists.map(task => {
                 if (task.taskState == taskState)
                     return (
-                        <Card border="secondary" bg={"dark"} text={"white"} >
-                        <tr className={"alighnLeft"} key={task.id}>
-                           
-
-                            <Card.Body>
-                            <Card.Title>{task.taskName}  </Card.Title>
-                            <td></td> 
-                            <Card.Text>{task.taskDescription} <br/> {task.taskState} </Card.Text>
-                            </Card.Body>
-
-
-                            <td>
-                                <ButtonGroup >
-                                    <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id}
-                                        className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
-
-                                    <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
-                                        <FontAwesomeIcon icon={faTrash} /> </Button>{''}
-
-
-                                </ButtonGroup>
-                            </td>
-                        </tr>
-                        </Card>)
+                        <TaskElement task={task} list={this.state.lists} projectid={this.props.match.params.projectId} api={this.api} deleteTask={this.deleteTask} />
+                    )
             })
             :
             null
@@ -133,7 +115,7 @@ export default class TaskList extends Component {
 
                     <Form>
 
-                            
+
                             <Form.Row>
 
                                 <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
@@ -147,24 +129,24 @@ export default class TaskList extends Component {
 
 
                     <Card.Body>
-                    <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                        <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                         <Row style={{ border: '1px solid #49a75f0d' }}>
 
                             <Col >
                                 <th className={"centerText"} >To do </th>
                                 <br />
-                                {this.getItems("TO_DO")}
+                                {this.getTaskItems("TO_DO")}
 
                             </Col>
                             <Col>
                                 <th className={"centerText"}>In progress </th>
                                 <br />
-                                {this.getItems("IN_PROGRESS")}
+                                {this.getTaskItems("IN_PROGRESS")}
                             </Col>
                             <Col>
                                 <th className={"centerText"}> Done </th>
                                 <br />
-                                {this.getItems("DONE")}
+                                {this.getTaskItems("DONE")}
                             </Col>
                         </Row>
 
