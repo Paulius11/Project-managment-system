@@ -129,7 +129,7 @@ export default class List extends Component {
                                 <td>{project.id} </td>
                                 <td>{project.projectName} </td>
                                 <td>{project.projectDescription} </td>
-                                <td align="center"> {project.projectState === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
+                                <td align="center"> {project.projectStatus === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
                                 <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
 
                                 <td>

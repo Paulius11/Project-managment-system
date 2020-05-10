@@ -24,7 +24,6 @@ export default class Project extends Component {
 
         projectName: '', projectDescription: '', projectStatus: '', projectId: ''
     }
-
     submitProject(event) {
 
         event.preventDefault();
@@ -134,9 +133,8 @@ export default class Project extends Component {
                                     onChange={this.projectChange}
                                     className={"bg-dark text-white"}>
                                     <option></option>
-                                    <option>Not started</option>
-                                    <option>In progress</option>
-                                    <option>Done</option>
+                                    <option>ACTIVE</option>
+                                    <option>COMPLETED</option>
                                 </Form.Control>
                             </Form.Group>
 

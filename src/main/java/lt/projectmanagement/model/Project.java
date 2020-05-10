@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,12 +21,8 @@ public class Project {
 	private Long id;
 	private String projectName;
 	private String projectDescription;
-
-	// Information about project
-	private boolean projectState;
-
-	// TODO: Projekto bendras užduočių kiekis
-	// TODO: Projekto neatliktų užduočių kiekis
+	@Enumerated(EnumType.STRING)
+	private ProjectStatus projectStatus;
 
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Task> listOfTasks;
@@ -32,11 +30,11 @@ public class Project {
 	protected Project() {
 	};
 
-	public Project(String name, String description, boolean projectState) {
+	public Project(String name, String description, ProjectStatus projectStatus) {
 		super();
 		this.projectName = name;
 		this.projectDescription = description;
-		this.projectState = projectState;
+		this.projectStatus = projectStatus;
 
 	}
 
@@ -52,10 +50,6 @@ public class Project {
 		this.projectDescription = projectDescription;
 	}
 
-	public void setProjectState(boolean projectState) {
-		this.projectState = projectState;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -68,8 +62,12 @@ public class Project {
 		return projectDescription;
 	}
 
-	public boolean isProjectState() {
-		return projectState;
+	public ProjectStatus getProjectStatus() {
+		return projectStatus;
+	}
+
+	public void setProjectStatus(ProjectStatus projectStatus) {
+		this.projectStatus = projectStatus;
 	}
 
 	public List<Task> getListOfTasks() {
@@ -83,7 +81,7 @@ public class Project {
 	@Override
 	public String toString() {
 		return "Projectas [id=" + id + ", projectName=" + projectName + ", projectDescription=" + projectDescription
-				+ ", projectState=" + projectState + "]";
+				+ ", projectState=" + projectStatus + "]";
 	}
 
 }

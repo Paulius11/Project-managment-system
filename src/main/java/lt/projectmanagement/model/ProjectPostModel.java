@@ -1,38 +1,41 @@
 package lt.projectmanagement.model;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ProjectPostModel {
-//:TODO Pagerinti validacija, kaip validuoti projectState?
-@Size(min=1)
-private String projectName;
-@Size(min=1)
-private String projectDescription;
-private boolean projectState;
 
-public String getProjectName() {
-	return projectName;
-}
+	@Size(min = 1)
+	private String projectName;
+	@Size(min = 1)
+	private String projectDescription;
+	@Enumerated(EnumType.STRING)
+	private ProjectStatus projectStatus;
 
-public void setProjectName(String projectName) {
-	this.projectName = projectName;
-}
+	public String getProjectName() {
+		return projectName;
+	}
 
-public String getProjectDescription() {
-	return projectDescription;
-}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 
-public void setProjectDescription(String projectDescription) {
-	this.projectDescription = projectDescription;
-}
+	public String getProjectDescription() {
+		return projectDescription;
+	}
 
-public boolean isProjectState() {
-	return projectState;
-}
+	public void setProjectDescription(String projectDescription) {
+		this.projectDescription = projectDescription;
+	}
 
-public void setProjectState(boolean projectState) {
-	this.projectState = projectState;
-}
+	public ProjectStatus getProjectStatus() {
+		return projectStatus;
+	}
+
+	public void setProjectStatus(ProjectStatus projectStatus) {
+		this.projectStatus = projectStatus;
+	}
 
 }

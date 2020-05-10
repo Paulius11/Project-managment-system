@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
 import lt.projectmanagement.model.Project;
+import lt.projectmanagement.model.ProjectStatus;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -46,7 +47,7 @@ public class TestingWebApplicationTest {
 
 	@Test
 	public void testAddingProject() throws Exception {
-		repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", true));
+		repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", ProjectStatus.ACTIVE));
 		this.mockMvc.perform(get("/api/projects")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Exciting project-0")));
 	}
@@ -58,7 +59,7 @@ public class TestingWebApplicationTest {
 		final String PROJECT_NAME = "ProjektasTest";
 		List<Project> findByProjectNameList = repositoryProject.findByProjectName(PROJECT_NAME);
 		if (findByProjectNameList.size() == 0) {
-			Project project = new Project(PROJECT_NAME, "ProjectTestDescr", true);
+			Project project = new Project(PROJECT_NAME, "ProjectTestDescr", ProjectStatus.ACTIVE);
 			repositoryProject.save(project);
 		}
 

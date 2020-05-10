@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
 import lt.projectmanagement.model.Project;
+import lt.projectmanagement.model.ProjectStatus;
 import lt.projectmanagement.model.Task;
 import lt.projectmanagement.model.TaskPriorityLevel;
 import lt.projectmanagement.model.TaskState;
@@ -30,10 +31,10 @@ public class ProjectManagement1Application {
 	public CommandLineRunner demo(ProjectRepository repositoryProject, TaskRepository taskRepository) {
 		return (args) -> {
 			// save a few projects
-			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", true));
-			repositoryProject.save(new Project("Exciting project-1", "Do something easy-1", true));
-			repositoryProject.save(new Project("Exciting project-2", "Do something simple-2", true));
-			repositoryProject.save(new Project("TestProjectName", "TestDescrName", true));
+			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", ProjectStatus.ACTIVE));
+			repositoryProject.save(new Project("Exciting project-1", "Do something easy-1", ProjectStatus.COMPLETED));
+			repositoryProject.save(new Project("Exciting project-2", "Do something simple-2", ProjectStatus.ACTIVE));
+			repositoryProject.save(new Project("TestProjectName", "TestDescrName", ProjectStatus.ACTIVE));
 
 			taskRepository.save(new Task("New task1", "Task description", TaskPriorityLevel.NORMAL, TaskState.TO_DO,
 					LocalDateTime.now()));

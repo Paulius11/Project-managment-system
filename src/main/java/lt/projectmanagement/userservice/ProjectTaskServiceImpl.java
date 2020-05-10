@@ -32,7 +32,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 									// objekta
 		projectModel.setProjectName(project.getProjectName());
 		projectModel.setProjectDescription(project.getProjectDescription());
-		projectModel.setProjectState(project.isProjectState());
+		projectModel.setProjectStatus(project.getProjectStatus() );
 		return repositoryProject.save(projectModel);
 	}
 
@@ -46,8 +46,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			displayAllprojectModel.setId(project.getId());
 			displayAllprojectModel.setProjectName(project.getProjectName());
 			displayAllprojectModel.setProjectDescription(project.getProjectDescription());
-			String state = project.isProjectState() ? "ACTIVE" : "COMPLETED";
-			displayAllprojectModel.setProjectState(state);
+			displayAllprojectModel.setProjectStatus(project.getProjectStatus());
 			displayAllprojectModel.setTotalTasks(project.getListOfTasks().size());
 			displayAllprojectModel.setIncopleteTasks(
 					project.getListOfTasks().stream().filter(x -> x.getTaskState() != TaskState.DONE).count());
@@ -73,7 +72,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		Project projectRequested = foundProject.get();
 		projectRequested.setProjectName(projectPost.getProjectName());
 		projectRequested.setProjectDescription(projectPost.getProjectDescription());
-		projectRequested.setProjectState(projectPost.isProjectState());
+		projectRequested.setProjectStatus(projectPost.getProjectStatus());
 		try {
 			repositoryProject.save(projectRequested);
 		} catch (Exception e) {
