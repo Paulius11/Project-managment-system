@@ -8,19 +8,19 @@ export default function TaskElementPopup(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function getVariant(taskState) {
-    if (taskState == "TO_DO")
-      return "outline-danger"
-    if (taskState == "IN_PROGRESS")
-      return "outline-warning"
-    if (taskState == "DONE")
+  function getVariant(taskPriority) {
+    if (taskPriority == "LOW")
+      return "outline-secondary"
+    if (taskPriority == "NORMAL")
       return "outline-success"
+    if (taskPriority == "HIGH")
+      return "outline-danger"
   }
 
   return (
     <>
 
-      <Button className={"p-0"} variant={getVariant(props.task.taskState)} onClick={handleShow}>
+      <Button className={"p-0"} variant={getVariant(props.task.taskPriority)} onClick={handleShow}>
         <FontAwesomeIcon icon={faEye} onClick={handleShow} />
       </Button>
       <Modal show={show} onHide={handleClose} animation={false}>
