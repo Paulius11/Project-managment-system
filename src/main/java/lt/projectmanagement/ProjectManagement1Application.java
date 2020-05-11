@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
@@ -19,6 +20,7 @@ import lt.projectmanagement.model.TaskPriorityLevel;
 import lt.projectmanagement.model.TaskState;
 
 @SpringBootApplication
+
 public class ProjectManagement1Application {
 
 	private static final Logger log = LoggerFactory.getLogger(ProjectManagement1Application.class);

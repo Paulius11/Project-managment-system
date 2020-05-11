@@ -11,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -40,17 +43,20 @@ public class Task {
 	@Column(columnDefinition = "varchar(12) default 'TO_DO'")
 	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
-
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@Column(updatable = false)
+    @CreationTimestamp
 	private LocalDateTime taskCreateTime;
-
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@UpdateTimestamp
 	private LocalDateTime taskModifyTime = LocalDateTime.now();
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
-
+	
 	public Task() {
 		taskCreateTime = LocalDateTime.now();
 	}
@@ -82,11 +88,11 @@ public class Task {
 	public LocalDateTime getTaskCreateTime() {
 		return taskCreateTime;
 	}
-
+    
 	public LocalDateTime getTaskModifyTime() {
 		return taskModifyTime;
 	}
-
+	
 	public void setTaskModifyTime(LocalDateTime taskModifyTime) {
 		this.taskModifyTime = taskModifyTime;
 	}
@@ -122,7 +128,7 @@ public class Task {
 	public void setTaskPriority(TaskPriorityLevel taskPriority) {
 		this.taskPriority = taskPriority;
 	}
-
+	
 	public void setTaskCreateTime(LocalDateTime taskCreateTime) {
 		this.taskCreateTime = taskCreateTime;
 	}
