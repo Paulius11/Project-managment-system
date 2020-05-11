@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faAdjust, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faAdjust, faPlusSquare, faFileExport } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -90,6 +90,46 @@ export default class List extends Component {
     }
 
 
+    getProjectCsv = (projectId) => {
+
+        axios.get(this.api + `/${projectId}/export-projects`)
+        const method = 'GET';
+
+        const url = this.api + `/${projectId}/export-projects`;
+
+        axios
+
+            .request({
+
+                url,
+
+                method,
+
+                responseType: 'blob', //important
+
+            })
+
+            .then(({ data }) => {
+
+                const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+
+                const link = document.createElement('a');
+
+                link.href = downloadUrl;
+
+                link.setAttribute('download', 'projects.csv'); //any other extension
+
+                document.body.appendChild(link);
+
+                link.click();
+
+                link.remove();
+
+            });
+
+    }
+
+
     render() {
 
         const { lists } = this.state;
@@ -140,6 +180,7 @@ export default class List extends Component {
                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
                                         <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                                         <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
+                                        <Button size="sm" variant="outline-success" onClick={this.getProjectCsv.bind(this, project.id)}> <FontAwesomeIcon icon={faFileExport} /></Button>
 
                                     </ButtonGroup>
                                 </td>
@@ -153,20 +194,25 @@ export default class List extends Component {
         return (
 
             <Card className={"border border-dark bg-dark text-white"} >
+                <Form>
 
-                <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
-                    <Form>
-                    
-                        <Form.Row>
+                    <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
+
+
+
+                    <Form.Row>
 
                             <Form.Control style={divStyle} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
 
                         </Form.Row>
 
-                    </Form>
-                </Card.Header>
+                        <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>
+
+                    </Card.Header>
+                </Form>
+
                 <Card.Body>
-                <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>{''}
+
                     <Table bordered hover striped variant="dark">
 
                         <thead>

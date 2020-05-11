@@ -111,9 +111,11 @@ export default class TaskList extends Component {
 
 
                 < Card className={"border border-dark bg-dark text-white"} >
-                    <Card.Header><FontAwesomeIcon icon={faList} />  Task list
 
                     <Form>
+                        <Card.Header><FontAwesomeIcon icon={faList} />  Task list
+
+
 
 
                             <Form.Row>
@@ -122,14 +124,14 @@ export default class TaskList extends Component {
 
                             </Form.Row>
 
-                        </Form>
+                            <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
 
-                    </Card.Header>
+                        </Card.Header>
 
-
+                    </Form>
 
                     <Card.Body>
-                        <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+
                         <Row style={{ border: '1px solid #49a75f0d' }}>
 
                             <Col >

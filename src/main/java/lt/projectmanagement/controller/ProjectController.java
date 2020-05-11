@@ -70,8 +70,8 @@ public class ProjectController {
     }
 
 
-    @GetMapping(path="/export-projects")
-    public void getProjectsCSV(HttpServletResponse response) throws Exception {
+    @GetMapping(path="{projectId}/export-projects")
+    public void getProjectsCSV(@PathVariable Long projectId, HttpServletResponse response) throws Exception {
 
         //set file name and content type
         String filename = "projects.csv";
@@ -81,13 +81,13 @@ public class ProjectController {
                 "attachment; filename=\"" + filename + "\"");
 
         //create a csv writer
-        StatefulBeanToCsv<DisplayAllProjectModel> writer = new StatefulBeanToCsvBuilder<DisplayAllProjectModel>(response.getWriter())
+        StatefulBeanToCsv<Project> writer = new StatefulBeanToCsvBuilder<Project>(response.getWriter())
                 .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                 .withOrderedResults(false)
                 .build();
 
         //write all users to csv file
-        writer.write(userService.getAllProjects());
+        writer.write(userService.geProjectById(projectId));
     }
 }
