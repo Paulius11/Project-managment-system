@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,9 +44,12 @@ public class Task {
 	private TaskState taskState;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@Column(updatable = false)
+    @CreationTimestamp
 	private LocalDateTime taskCreateTime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@UpdateTimestamp
 	private LocalDateTime taskModifyTime = LocalDateTime.now();
 
 	@JsonIgnore
