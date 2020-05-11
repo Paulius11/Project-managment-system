@@ -25,3 +25,9 @@
     display: flex;
     justify-content: space-between;
   }
+
+.search-width {
+  width: '90%';
+  height: 2em;
+  margin-bottom: 1em;
+}

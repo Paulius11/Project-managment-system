@@ -143,9 +143,7 @@ export default class List extends Component {
     render() {
 
         const { lists } = this.state;
-        var divStyle = {
-            width: '33%'
-        };
+
 
 
         // Get current posts -- pagination
@@ -201,7 +199,7 @@ export default class List extends Component {
 
             )
 
-        let paginationForm = (<Form.Control as="select" size="sm" name="paginationForm" value={"15"} className={"bg-dark text-white"} onChange={this.changeDisplayProjectCount} custom>
+        let paginationForm = (<Form.Control as="select" size="sm" name="paginationForm" value={this.state.postsPerPage} className={"bg-dark text-white"} onChange={this.changeDisplayProjectCount} custom>
             <option>3</option>
             <option>15</option>
             <option>20</option>
@@ -212,24 +210,23 @@ export default class List extends Component {
         return (
 
             <Card className={"border border-dark bg-dark text-white"} >
-                <Form>
 
-                    <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
-
-
-
-                    <Form.Row>
-
-                            <Form.Control style={divStyle} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
-
-                        </Form.Row>
-
-                        <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>
-
-                    </Card.Header>
-                </Form>
 
                 <Card.Body>
+
+                    <Container >
+                        <Row>
+                            <Col >
+                                <FontAwesomeIcon icon={faList} /> All projects list
+                            </Col>
+                            <Col md="auto">
+                                    <Form.Control className={"search-width"} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
+                                </Col>
+                            <Col xs lg="2">
+                                <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>
+                            </Col>
+                        </Row>
+                    </Container>
 
                     <Table bordered hover striped variant="dark">
 
