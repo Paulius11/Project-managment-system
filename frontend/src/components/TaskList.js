@@ -100,37 +100,27 @@ export default class TaskList extends Component {
 
 
     render() {
-        var divStyle = {
-            width: '33%'
-        };
-
-
         return (
 
             <Container>
 
 
                 < Card className={"border border-dark bg-dark text-white"} >
-
-                    <Form>
-                        <Card.Header><FontAwesomeIcon icon={faList} />  Task list
-
-
-
-
-                            <Form.Row>
-
-                                <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
-
-                            </Form.Row>
-
+                <Card.Body>
+                    <Container >
+                        <Row>
+                            <Col >
+                            <FontAwesomeIcon icon={faList} />  Task list
+                            </Col>
+                            <Col md="auto">
+                                   <Form.Control className={"search-width"} onChange={this.handleSearchInput} placeholder="Search ..." />
+                                </Col>
+                            <Col xs lg="2">
                             <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                            </Col>
+                        </Row>
+                    </Container>
 
-                        </Card.Header>
-
-                    </Form>
-
-                    <Card.Body>
 
                         <Row style={{ border: '1px solid #49a75f0d' }}>
 
@@ -155,6 +145,7 @@ export default class TaskList extends Component {
 
                     </Card.Body>
                 </Card >
+                
             </Container>
         );
 

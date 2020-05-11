@@ -211,9 +211,7 @@ export default class List extends Component {
 
             <Card className={"border border-dark bg-dark text-white"} >
 
-
                 <Card.Body>
-
                     <Container >
                         <Row>
                             <Col >
