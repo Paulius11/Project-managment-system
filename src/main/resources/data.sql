@@ -5,6 +5,15 @@ VALUES
 							  (42, 'Labai įdomus projektas', 'Labai įdomus apibūdinimas', 'COMPLETED'),
 ((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas2', 'Apibudinimas2', 'COMPLETED'),
 ((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
+((SELECT MAX(ID)+1  FROM PROJECT), 'Projektas3', 'Apibudinimas3', 'ACTIVE'),
 ((SELECT MAX(ID)+1  FROM PROJECT), 'Programavimo kalbos', 'Kalbos kurias mokysiuosi', 'ACTIVE')
 ;
 

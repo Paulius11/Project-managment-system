@@ -18,7 +18,7 @@ export default class List extends Component {
             lists: [],
             search: '',
             currentPage: 1,
-            postsPerPage: 3
+            postsPerPage: 15
         }
         this.api = "http://localhost:9090/api/projects";
 
@@ -87,6 +87,16 @@ export default class List extends Component {
     paginate = (page) => {
         this.setState({ currentPage: page })
         console.log(this.state.currentPage)
+    }
+
+    changeDisplayProjectCount = (event) => {
+        console.log(event.target)
+
+        this.setState({
+            [event.target.name]: event.target.value,
+            postsPerPage: event.target.value
+        });
+        console.log(this.state)
     }
 
 
@@ -191,6 +201,14 @@ export default class List extends Component {
 
             )
 
+        let paginationForm = (<Form.Control as="select" size="sm" name="paginationForm" value={"15"} className={"bg-dark text-white"} onChange={this.changeDisplayProjectCount} custom>
+            <option>3</option>
+            <option>15</option>
+            <option>20</option>
+            <option>25</option>
+            <option>50</option>
+        </Form.Control>)
+
         return (
 
             <Card className={"border border-dark bg-dark text-white"} >
@@ -233,14 +251,20 @@ export default class List extends Component {
                     </Table>
                 </Card.Body>
 
+
+
+
                 <Container>
-
-                    <Row>
-                        <Col md={{ span: 3, offset: 5 }}> {paginationBasic}</Col>
-
+                    <Row className="justify-content-md-center mb-4" >
+                        <Col xs lg="2">
+                        </Col>
+                        <Col md="auto">{paginationBasic}</Col>
+                        <Col xs lg="2">
+                            {paginationForm}
+                        </Col>
                     </Row>
-
                 </Container>
+
             </Card >
 
 

@@ -10,9 +10,9 @@ class Footer extends React.Component {
         return (
             <Navbar fixed="bottom" bg="dark" variant="light" >
                 <Container>
-                    <Col lg={12} className="text-center text-muted">
+                    <Col  className="text-center text-muted">
 
-                        <div>{year}-{year + 1},  All rights deserved to Vilius</div>
+                        <div>{year}-{year + 1},  All rights deserved to Alfa Team</div>
                     </Col>
 
 
