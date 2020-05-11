@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card, Table, ButtonGroup, Button, Form } from 'react-bootstrap';
+import { Card, Form, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import { faList, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import TaskElement from './TaskElement'
 
 toast.configure()
 export default class TaskList extends Component {
@@ -52,21 +52,7 @@ export default class TaskList extends Component {
 
     };
 
-    deleteTask = (taskId) => {
 
-        axios.delete(this.api + "/" + taskId)
-            .then(response => {
-
-                if (response != null)
-                    toast.warn("Task has been deleted successfully")
-                this.setState({
-                    lists: this.state.lists.filter(x => x.id !== taskId)
-
-                });
-
-            });
-
-    };
 
     handleSearchInput = (e) => {
         console.log(e.target.value);
@@ -81,10 +67,39 @@ export default class TaskList extends Component {
         })
     };
 
+    deleteTask = (taskId) => {
+        let uri = this.api + "/" + taskId
+        console.log(uri)
+        axios.delete(uri)
+            .then(response => {
+
+                if (response != null)
+                    toast.warn("✔️ Task has been deleted successfully ")
+                this.setState({
+                    lists: this.state.lists.filter(x => x.id !== taskId)
+
+                });
+
+            });
+
+    };
+
+
+    getTaskItems = (taskState) => (
+        this.state.lists.length ?
+            this.state.lists.map(task => {
+                if (task.taskState == taskState)
+                    return (
+                        <TaskElement key={task.id} task={task} list={this.state.lists} projectid={this.props.match.params.projectId} api={this.api} deleteTask={this.deleteTask} />
+                    )
+            })
+            :
+            null
+
+    )
+
 
     render() {
-        const { lists } = this.state;
-
         var divStyle = {
             width: '33%'
         };
@@ -92,75 +107,53 @@ export default class TaskList extends Component {
 
         return (
 
-            < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Header><FontAwesomeIcon icon={faList} />  Task list
+            <Container>
+
+
+                < Card className={"border border-dark bg-dark text-white"} >
+                    <Card.Header><FontAwesomeIcon icon={faList} />  Task list
 
                     <Form>
 
-                        <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task<FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                        <Form.Row>
 
-                            <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
+                            <Form.Row>
 
-                        </Form.Row>
+                                <Form.Control style={divStyle} onChange={this.handleSearchInput} placeholder="Search ..." />
 
-                    </Form>
+                            </Form.Row>
 
-                </Card.Header>
+                        </Form>
 
-
-
-                <Card.Body>
-
-                    <Table bordered hover striped variant="dark">
-                        <thead>
-                            <tr>
-                                <td>Task Id</td>
-                                <td>Task Name</td>
-                                <td>Task Description</td>
-                                <td>Task Status</td>
-                                <td>Task Priority</td>
-                                <td>Task Create Time</td>
-                                <td>Task Modify Time</td>
-                                <td>Actions</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                lists.length ?
-                                    lists.map(task => {
-                                        return (
-
-                                            <tr key={task.id}>
-                                                <td>{task.id}</td>
-                                                <td>{task.taskName} </td>
-                                                <td>{task.taskDescription} </td>
-                                                <td>{task.taskPriority}</td>
-                                                <td>{task.taskState} </td>
-                                                <td>{task.taskCreateTime}</td>
-                                                <td>{task.taskModifyTime}</td>
-                                                <td>
-                                                    <ButtonGroup>
-                                                        <Link to={"taskedit/" + this.props.match.params.projectId + "/tasks/" + task.id}
-                                                            className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
-
-                                                        <Button size="sm" variant="outline-danger" onClick={this.deleteTask.bind(this, task.id)}>
-                                                            <FontAwesomeIcon icon={faTrash} /> </Button>{''}
+                    </Card.Header>
 
 
-                                                    </ButtonGroup>
-                                                </td>
-                                            </tr>)
-                                    })
-                                    :
-                                    null
 
-                            }
-                        </tbody>
+                    <Card.Body>
+                        <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                        <Row style={{ border: '1px solid #49a75f0d' }}>
 
-                    </Table>
-                </Card.Body>
-            </Card >
+                            <Col >
+                                <div className={"centerText"} >To do </div>
+                                <br />
+                                {this.getTaskItems("TO_DO")}
+
+                            </Col>
+                            <Col>
+                                <div className={"centerText"}>In progress </div>
+                                <br />
+                                {this.getTaskItems("IN_PROGRESS")}
+                            </Col>
+                            <Col>
+                                <div className={"centerText"}> Done </div>
+                                <br />
+                                {this.getTaskItems("DONE")}
+                            </Col>
+                        </Row>
+
+
+                    </Card.Body>
+                </Card >
+            </Container>
         );
 
     }

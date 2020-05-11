@@ -1,5 +1,8 @@
 package lt.projectmanagement.model;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,7 +11,8 @@ public class DisplayAllProjectModel {
 	private long id;
 	private String projectName;
 	private String projectDescription;
-	private String projectState;
+	@Enumerated(EnumType.STRING)
+	private ProjectStatus projectStatus;
 	private long totalTasks;
 	private long incopleteTasks;
 
@@ -36,12 +40,12 @@ public class DisplayAllProjectModel {
 		this.projectDescription = projectDescription;
 	}
 
-	public String getProjectState() {
-		return projectState;
+	public ProjectStatus getProjectStatus() {
+		return projectStatus;
 	}
 
-	public void setProjectState(String projectState) {
-		this.projectState = projectState;
+	public void setProjectStatus(ProjectStatus projectStatus) {
+		this.projectStatus = projectStatus;
 	}
 
 	public long getTotalTasks() {

@@ -27,13 +27,15 @@ function App() {
                 <Row>
                     <Col lg={12} style={marginTop}>
                         <Switch>
+
                             <Route path="/" exact component={Welcome} />
 
 
-                            <Route path="/add" exact component={Project} />
-                            <Route path="/edit/:projectId" exact component={ProjectEdit} />
+                            <Route path="/add" exact component={Project} /> 
                             <Route path="/list" exact component={List} />
 
+
+                            <Route path="/edit/:projectId" exact component={ProjectEdit} />
                             <Route path="/tasklist/addtask/:projectId" exact component={Task} />
 
                             <Route path="/tasklist/addtask" exact component={Task} />

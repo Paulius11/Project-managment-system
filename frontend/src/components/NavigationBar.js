@@ -17,8 +17,7 @@ class NavigationBar extends React.Component {
 				</Link>
 
 				<Nav className="mr-auto">
-					<Link to={"add"} className="nav-link">Add Project</Link>
-					<Link to={"list"} className="nav-link">Project List</Link>
+					<Nav.Link href="/list" className="nav-link">Project List</Nav.Link>
 				</Nav>
 			</Navbar>
 

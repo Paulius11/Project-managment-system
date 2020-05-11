@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faEdit, faTrash, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import { faList, faEdit, faTrash, faAdjust, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -129,7 +129,7 @@ export default class List extends Component {
                                 <td>{project.id} </td>
                                 <td>{project.projectName} </td>
                                 <td>{project.projectDescription} </td>
-                                <td align="center"> {project.projectState === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
+                                <td align="center"> {project.projectStatus === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
                                 <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
 
                                 <td>
@@ -156,6 +156,7 @@ export default class List extends Component {
 
                 <Card.Header><FontAwesomeIcon icon={faList} /> All projects list
                     <Form>
+                    
                         <Form.Row>
 
                             <Form.Control style={divStyle} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
@@ -165,6 +166,7 @@ export default class List extends Component {
                     </Form>
                 </Card.Header>
                 <Card.Body>
+                <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>{''}
                     <Table bordered hover striped variant="dark">
 
                         <thead>

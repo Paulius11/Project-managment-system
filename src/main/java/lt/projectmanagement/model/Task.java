@@ -2,7 +2,6 @@ package lt.projectmanagement.model;
 
 import java.time.LocalDateTime;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 import org.springframework.stereotype.Component;
 
@@ -43,17 +41,18 @@ public class Task {
 	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
 
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime taskCreateTime;
 
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime taskModifyTime = LocalDateTime.now();
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
-	
-	public Task() {taskCreateTime = LocalDateTime.now();
+
+	public Task() {
+		taskCreateTime = LocalDateTime.now();
 	}
 
 	public Task(Long id, String taskName, String taskDescription, TaskPriorityLevel taskPriority, TaskState taskState,
@@ -116,12 +115,16 @@ public class Task {
 		this.taskDescription = taskDescription;
 	}
 
-	public TaskPriorityLevel getProjectPriority() {
+	public TaskPriorityLevel getTaskPriority() {
 		return taskPriority;
 	}
 
-	public void setProjectPriority(TaskPriorityLevel projectPriority) {
-		this.taskPriority = projectPriority;
+	public void setTaskPriority(TaskPriorityLevel taskPriority) {
+		this.taskPriority = taskPriority;
+	}
+
+	public void setTaskCreateTime(LocalDateTime taskCreateTime) {
+		this.taskCreateTime = taskCreateTime;
 	}
 
 	public TaskState getTaskState() {
