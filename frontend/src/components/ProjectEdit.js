@@ -32,7 +32,7 @@ export default class Project extends Component {
         const project = {
             projectName: this.state.projectName,
             projectDescription: this.state.projectDescription,
-            projectStatus: this.state.projectStatus,
+           
             projectId: this.state.projectId
         };
 
