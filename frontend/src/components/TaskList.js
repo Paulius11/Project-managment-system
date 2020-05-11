@@ -17,55 +17,52 @@ export default class TaskList extends Component {
         super(props);
         const { match: { params } } = this.props;
 
-
-
         this.state = {
             lists: [],
             search: ''
         }
-
         this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
-
-
     }
 
 
     componentDidMount() {
-
         this.getLists();
-
-
     }
 
 
     getLists() {
-
         axios.get(this.api)
             .then((data) => {
                 this.setState({ lists: data.data });
-
-
             })
             .catch((error) => {
                 console.log(error)
             })
 
     };
+    handleSearchPrepare = () => {
+        this.setState({ listTemp: [...this.state.lists] })
+        console.log(this.state.listTemp)
+    }
 
-
+    setInitialState() {
+        this.setState({ lists: this.state.listTemp });
+    }
 
     handleSearchInput = (e) => {
-        console.log(e.target.value);
-        if (e.target.value === '') {
-            this.getLists();
-        }
-        this.setState({
-            search: e.target.value,
-            lists: this.state.lists.filter((p) => {
-                return p.taskName.toLowerCase().includes(this.state.search.toLowerCase())
+
+        let { value } = e.target;
+        if (value === '') {
+            this.setInitialState()
+        } else {
+            let filtered = this.state.listTemp.filter((p) => {
+                return p.taskName.toLowerCase().includes(value.toLowerCase())
             })
-        })
-    };
+            this.setState({
+                lists: filtered
+            })
+        }
+    }
 
     deleteTask = (taskId) => {
         let uri = this.api + "/" + taskId
@@ -106,20 +103,20 @@ export default class TaskList extends Component {
 
 
                 < Card className={"border border-dark bg-dark text-white"} >
-                <Card.Body>
-                    <Container >
-                        <Row>
-                            <Col >
-                            <FontAwesomeIcon icon={faList} />  Task list
+                    <Card.Body>
+                        <Container >
+                            <Row>
+                                <Col >
+                                    <FontAwesomeIcon icon={faList} />  Task list
                             </Col>
-                            <Col md="auto">
-                                   <Form.Control className={"search-width"} onChange={this.handleSearchInput} placeholder="Search ..." />
+                                <Col md="auto">
+                                    <Form.Control className={"search-width"}  onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare}  placeholder="Search ..." />
                                 </Col>
-                            <Col xs lg="2">
-                            <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                            </Col>
-                        </Row>
-                    </Container>
+                                <Col xs lg="2">
+                                    <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                                </Col>
+                            </Row>
+                        </Container>
 
 
                         <Row style={{ border: '1px solid #49a75f0d' }}>
@@ -145,7 +142,7 @@ export default class TaskList extends Component {
 
                     </Card.Body>
                 </Card >
-                
+
             </Container>
         );
 

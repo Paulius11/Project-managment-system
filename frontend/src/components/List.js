@@ -24,10 +24,7 @@ export default class List extends Component {
 
     }
     componentDidMount() {
-
         this.getLists();
-
-
     }
 
     getLists() {
@@ -218,8 +215,8 @@ export default class List extends Component {
                                 <FontAwesomeIcon icon={faList} /> All projects list
                             </Col>
                             <Col md="auto">
-                                    <Form.Control className={"search-width"} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
-                                </Col>
+                                <Form.Control className={"search-width"} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
+                            </Col>
                             <Col xs lg="2">
                                 <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>
                             </Col>
