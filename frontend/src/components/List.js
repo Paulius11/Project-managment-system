@@ -71,7 +71,7 @@ export default class List extends Component {
 
         } else {
             let filtered = this.state.listTemp.filter((p) => {
-                return p.projectName.toLowerCase().includes(value)
+                return p.projectName.toLowerCase().includes(value.toLowerCase())
             })
             this.setState({
                 currentPage: 1,
