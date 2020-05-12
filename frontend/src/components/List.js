@@ -198,7 +198,7 @@ export default class List extends Component {
 
             )
 
-        let paginationForm = (<Form.Control as="select" size="sm" name="paginationForm" value={this.state.postsPerPage} className={"bg-dark text-white"} onChange={this.changeDisplayProjectCount} custom>
+        let paginationForm = (<Form.Control as="select" size="sm" name="paginationForm" value={this.state.postsPerPage} className={"bg-dark text-white pagination-options"} onChange={this.changeDisplayProjectCount} custom>
             <option>3</option>
             <option>15</option>
             <option>20</option>
