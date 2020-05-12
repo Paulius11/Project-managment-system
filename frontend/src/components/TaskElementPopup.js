@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Markup } from 'interweave';
+
 export default function TaskElementPopup(props) {
 
   const [show, setShow] = useState(false);
@@ -25,7 +27,7 @@ export default function TaskElementPopup(props) {
       </Button>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>{props.task.taskName}</Modal.Title>
+          <Modal.Title><Col><Markup content={props.task.taskName} /></Col></Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
@@ -35,12 +37,8 @@ export default function TaskElementPopup(props) {
               <Col>{props.task.id}</Col>
             </Row>
             <Row>
-              <Col><b>Task Name:</b></Col>
-              <Col>{props.task.taskName}</Col>
-            </Row>
-            <Row>
               <Col><b>Task Description:</b></Col>
-              <Col>{props.task.taskDescription}</Col>
+              <Col><Markup content={props.task.taskDescription} /></Col>
             </Row>
             <Row>
               <Col><b>Task Priority:</b></Col>

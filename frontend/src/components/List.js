@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
+import { Markup } from 'interweave';
 
 toast.configure()
 export default class List extends Component {
@@ -171,9 +172,10 @@ export default class List extends Component {
                     currentPosts.map(project => {
                         return (
                             <tr key={project.id}>
+                                
                                 <td>{project.id} </td>
                                 <td>{project.projectName} </td>
-                                <td>{project.projectDescription} </td>
+                                <td><Markup content={project.projectDescription} /></td>
                                 <td align="center"> {project.projectStatus === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
                                 <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
 
