@@ -13,9 +13,9 @@ export default class TaskElement extends Component {
 
     render() {
         return (
-            <Card border="secondary" bg={"dark"} text={"white"} className={"mb-1"}>
+            <Card border="secondary" bg={"dark"} text={"white"} className={"mb-1 kortele"}>
 
-
+                
                 <tr className={"alighnLeft"} key={this.props.id}>
                     <Card.Body>
                         <Card.Title>

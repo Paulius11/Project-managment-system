@@ -1,5 +1,3 @@
-/* Pagination css */
-
 .custom-pagination {
     display: inline-flex;
     list-style: none;
@@ -16,12 +14,12 @@
     border: 1px solid #17324d;
   }
 
-  .centerText {
+.centerText {
     display: flex;
     justify-content: center;
   }
 
-  .alighnLeft {
+.alighnLeft {
     display: flex;
     justify-content: space-between;
   }
@@ -36,4 +34,19 @@
   margin-top: 0.2em;
   width: auto;
 
+}
+
+.kortele {
+  border-radius: .25rem;
+  box-shadow: 0 0 5px 2px rgba(146, 120, 120, 0.3);
+  background-color: white;
+  transform-style: preserve-3d;
+  transition: 150ms;
+  cursor: pointer;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0));
+}
+
+.kortele:hover {
+  --translate-y: -2px;
+  box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5);
 }
