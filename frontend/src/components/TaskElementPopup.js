@@ -28,18 +28,39 @@ export default function TaskElementPopup(props) {
           <Modal.Title>{props.task.taskName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
           <Container>
-
-            <Row>Task ID: {props.task.id}</Row>
-            <Row>Task Name: {props.task.taskName}</Row>
-            <Row>Task Description: {props.task.taskDescription}</Row>
-            <Row>Task Priority: {props.task.taskPriority}</Row>
-            <Row>Task State: {props.task.taskState}</Row>
-            <Row>Task CreateTime: {props.task.taskCreateTime}</Row>
-            <Row>Task Modify Time: {props.task.taskModifyTime}</Row>
-
-
+            <Row>
+              <Col><b>Task ID:</b></Col>
+              <Col>{props.task.id}</Col>
+            </Row>
+            <Row>
+              <Col><b>Task Name:</b></Col>
+              <Col>{props.task.taskName}</Col>
+            </Row>
+            <Row>
+              <Col><b>Task Description:</b></Col>
+              <Col>{props.task.taskDescription}</Col>
+            </Row>
+            <Row>
+              <Col><b>Task Priority:</b></Col>
+              <Col>{props.task.taskPriority}</Col>
+            </Row>
+            <Row>
+              <Col><b>Task State:</b></Col>
+              <Col>{props.task.taskState}</Col>
+            </Row>
+            <Row>
+              <Col><b>Task Create Time:</b></Col>
+              <Col>{props.task.taskCreateTime}</Col>
+            </Row>
+            <Row>
+              <Col><b>Task Modify Time:</b></Col>
+              <Col>{props.task.taskModifyTime}</Col>
+            </Row>
           </Container>
+
+
 
 
         </Modal.Body>
