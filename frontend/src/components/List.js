@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 import { Markup } from 'interweave';
-
+import ReactTooltip from "react-tooltip";
 toast.configure()
 export default class List extends Component {
 
@@ -177,7 +177,7 @@ export default class List extends Component {
                                 <td>{project.projectName} </td>
                                 <td><Markup content={project.projectDescription} /></td>
                                 <td align="center"> {project.projectStatus === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
-                                <td align="center"> {project.totalTasks}/{project.incopleteTasks}</td>
+                                <td align="center"> {project.incopleteTasks  === 0? <Badge pill variant="success"><p className="logo" data-tip= {`${project.incopleteTasks}/${project.totalTasks}`} >✔</p><ReactTooltip /></Badge>: <Badge pill variant="secondary" ><p className="logo" data-tip={`${project.incopleteTasks}/${project.totalTasks}`}>✘</p><ReactTooltip /></Badge>}</td>
 
                                 <td>
                                     <ButtonGroup>
