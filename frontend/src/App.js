@@ -12,6 +12,8 @@ import TaskEdit from './components/TaskEdit';
 import ProjectEdit from './components/ProjectEdit';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+
+
 function App() {
 
     const marginTop = {
@@ -22,16 +24,20 @@ function App() {
 
     return (
         <Router>
+
+
             <NavigationBar />
+            
             <Container>
                 <Row>
                     <Col lg={12} style={marginTop}>
+                        
                         <Switch>
 
                             <Route path="/" exact component={Welcome} />
 
 
-                            <Route path="/add" exact component={Project} /> 
+                            <Route path="/add" exact component={Project} />
                             <Route path="/list" exact component={List} />
 
 
@@ -43,11 +49,15 @@ function App() {
                             <Route path="/tasklist/taskedit/:projectId/tasks/:taskId" exact component={TaskEdit} />
                             <Route path="/tasklist/:projectId" exact component={TaskList} />
 
+
                         </Switch>
+
                     </Col>
+
                 </Row>
             </Container>
             <Footer />
+
         </Router>
     );
 }
