@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TaskElement from './TaskElement'
+import TaskBoxTarget from './TaskBoxTarget'
+import Backend from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 
 toast.configure()
 export default class TaskList extends Component {
@@ -22,15 +25,16 @@ export default class TaskList extends Component {
             search: ''
         }
         this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
+        this.projectId = params.projectId;
     }
-
 
     componentDidMount() {
         this.getLists();
     }
 
 
-    getLists() {
+    getLists = () => {
+        console.log("Entering function")
         axios.get(this.api)
             .then((data) => {
                 this.setState({ lists: data.data });
@@ -98,53 +102,62 @@ export default class TaskList extends Component {
 
     render() {
         return (
-
             <Container>
-
-
-                < Card className={"border border-dark bg-dark text-white"} >
+                <Card className={'border border-dark bg-dark text-white'}>
                     <Card.Body>
-                        <Container >
+                        <Container>
                             <Row>
-                                <Col >
-                                    <FontAwesomeIcon icon={faList} />  Task list
-                            </Col>
+                                <Col>
+                                    <FontAwesomeIcon icon={faList} /> Task list
+                                </Col>
                                 <Col md="auto">
-                                    <Form.Control className={"search-width"}  onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare}  placeholder="Search ..." />
+                                    <Form.Control
+                                        className={'search-width'}
+                                        onChange={this.handleSearchInput}
+                                        onFocus={this.handleSearchPrepare}
+                                        placeholder="Search ..."
+                                    />
                                 </Col>
                                 <Col xs lg="2">
-                                    <Link to={"addtask/" + this.props.match.params.projectId} className="btn btn-sm btn-outline-light"> Add task <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
+                                    <Link to={'addtask/' + this.props.match.params.projectId} className="btn btn-sm btn-outline-light">
+                                        {' '}
+                                        Add task <FontAwesomeIcon icon={faAdjust} />{' '}
+                                    </Link>
+                                    {''}
                                 </Col>
                             </Row>
                         </Container>
 
-
                         <Row style={{ border: '1px solid #49a75f0d' }}>
+                            <DndProvider backend={Backend}>
+                                <Col>
+                                    <div className={'centerText'}>To do </div>
+                                    <br />
+                                    <TaskBoxTarget projectId={this.projectId} getTasks={this.getLists} boxPriority={"TO_DO"}>
+                                        {this.getTaskItems('TO_DO')}
+                                    </TaskBoxTarget>
+                                </Col>
 
-                            <Col >
-                                <div className={"centerText"} >To do </div>
-                                <br />
-                                {this.getTaskItems("TO_DO")}
-
-                            </Col>
-                            <Col>
-                                <div className={"centerText"}>In progress </div>
-                                <br />
-                                {this.getTaskItems("IN_PROGRESS")}
-                            </Col>
-                            <Col>
-                                <div className={"centerText"}> Done </div>
-                                <br />
-                                {this.getTaskItems("DONE")}
-                            </Col>
+                                <Col>
+                                    <div className={'centerText '}>In progress </div>
+                                    <br />
+                                    <TaskBoxTarget projectId={this.projectId} getTasks={this.getLists}  boxPriority={"IN_PROGRESS"}>
+                                        {this.getTaskItems('IN_PROGRESS')}
+                                    </TaskBoxTarget>
+                                </Col>
+                                <Col>
+                                    <TaskBoxTarget projectId={this.projectId} getTasks={this.getLists} boxPriority={"DONE"}>
+                                        <div className={'centerText'}> Done </div>
+                                        <br />
+                                        {this.getTaskItems('DONE')}
+                                    </TaskBoxTarget>
+                                </Col>
+                            </DndProvider>
                         </Row>
-
-
                     </Card.Body>
-                </Card >
-
+                </Card>
             </Container>
-        );
+        )
 
     }
 }

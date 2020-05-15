@@ -138,10 +138,19 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		public Task taskUpdate(Long id, TaskPostModel taskPost, Project project) {
 			Optional<Task> foundTask = repositoryTask.findById(id);
 			Task taskRequested = foundTask.get();
-			taskRequested.setTaskName(taskPost.getTaskName());
-			taskRequested.setTaskDescription(taskPost.getTaskDescription());
-			taskRequested.setTaskState(taskPost.getTaskState());
-			taskRequested.setTaskPriority(taskPost.getTaskPriority());
+			if(taskPost.getTaskName() != null) {
+				taskRequested.setTaskName(taskPost.getTaskName());
+			}
+			if(taskPost.getTaskDescription() != null) {
+				taskRequested.setTaskDescription(taskPost.getTaskDescription());
+			}
+			if(taskPost.getTaskState() != null) {
+				taskRequested.setTaskState(taskPost.getTaskState());
+			}
+			if(taskPost.getTaskPriority() != null) {
+				taskRequested.setTaskPriority(taskPost.getTaskPriority());;
+			}
+			
 
 			try {
 				repositoryTask.save(taskRequested);
