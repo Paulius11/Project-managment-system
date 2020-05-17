@@ -45,7 +45,7 @@ public class Task {
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	@Column(updatable = false)
-    @CreationTimestamp
+	@CreationTimestamp
 	private LocalDateTime taskCreateTime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")

@@ -21,73 +21,103 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+/**
+ * Project controller 
+ */
+@CrossOrigin(origins = { "http://localhost:3000" })
 @Api(value = "user")
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectController {
 
-    @Autowired
-    ProjectTaskService userService;
-    private Project createProject;
+	@Autowired
+	ProjectTaskService userService;
+	private Project createProject;
 
-    @ApiOperation(value = "Get users", notes = "Returns registered users.")
-    @GetMapping()
-    public ResponseEntity<List<DisplayAllProjectModel>> getAllProject() {
-        return new ResponseEntity<List<DisplayAllProjectModel>>(userService.getAllProjects(), HttpStatus.OK);
-    }
+	@ApiOperation(value = "Get users", notes = "Returns registered users.")
+	@GetMapping()
+	public ResponseEntity<List<DisplayAllProjectModel>> getAllProject() {
+		return new ResponseEntity<List<DisplayAllProjectModel>>(userService.getAllProjects(), HttpStatus.OK);
+	}
 
-    @ApiOperation(value = "Get project by projectId", notes = "Returns project by projectId.")
-    @GetMapping("/{projectId}")
-    public Project getProjectById(@PathVariable Long projectId) {
-        return userService.geProjectById(projectId);
-    }
+	/**
+	 * Gets project by ID
+	 * 
+	 * @param projectId ID of project
+	 * @return Returns project by projectId
+	 */
+	@ApiOperation(value = "Get project by projectId", notes = "Returns project by projectId.")
+	@GetMapping("/{projectId}")
+	public Project getProjectById(@PathVariable Long projectId) {
+		return userService.geProjectById(projectId);
+	}
 
-    @ApiOperation(value = "Create projecs", notes = "Creates new project.")
-    @PostMapping
-    public ResponseEntity<Object> createProject(@Valid @RequestBody ProjectPostModel projectPost) {
-        createProject = userService.createProject(projectPost);
+	/**
+	 * Creates new project via POST method
+	 * 
+	 * @param projectPost data from ProjectPostModel
+	 * @return Location URI of newly created project
+	 */
+	@ApiOperation(value = "Create projecs", notes = "Creates new project.")
+	@PostMapping
+	public ResponseEntity<Object> createProject(@Valid @RequestBody ProjectPostModel projectPost) {
+		createProject = userService.createProject(projectPost);
 
-        // Adds to response 'Header Location': http://localhost:9090/api/projects/{id}
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(createProject.getId()).toUri();
-        return ResponseEntity.created(location).build();
-    }
+		// Adds to response 'Header Location': http://localhost:9090/api/projects/{id}
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(createProject.getId()).toUri();
+		return ResponseEntity.created(location).build();
+	}
 
-    @ApiOperation(value = "Edit project by projectID", notes = "Returns project by projectId.")
-    @PutMapping("/{projectId}")
-    public Project editProject(@Valid @RequestBody ProjectPostModel projectPost, @PathVariable Long projectId) {
-        Project projectUpdate = userService.projectUpdate(projectId, projectPost);
-        return projectUpdate;
-    }
+	/**
+	 * Edits project by project ID
+	 * 
+	 * @param projectPost data from ProjectPostModel
+	 * @param projectId  ID of project name
+	 * @return return data of updated object
+	 */
+	@ApiOperation(value = "Edit project by projectID", notes = "Returns project by projectId.")
+	@PutMapping("/{projectId}")
+	public Project editProject(@Valid @RequestBody ProjectPostModel projectPost, @PathVariable Long projectId) {
+		Project projectUpdate = userService.projectUpdate(projectId, projectPost);
+		return projectUpdate;
+	}
 
-    @ApiOperation(value = "Delete project", notes = "Delete project by projectId.")
-    @DeleteMapping("{projectId}")
-    public ResponseEntity<Void> deleteProject(@PathVariable Long projectId) {
-        userService.deleteProjectById(projectId);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-//	    return ResponseEntity.noContent().build();
-    }
+	/**
+	 * Deletes project by project ID
+	 * 
+	 * @param projectId ID of project
+	 * @return Returns OK status code if deletion is successful
+	 */
+	@ApiOperation(value = "Delete project", notes = "Delete project by projectId.")
+	@DeleteMapping("{projectId}")
+	public ResponseEntity<Void> deleteProject(@PathVariable Long projectId) {
+		userService.deleteProjectById(projectId);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
+	/**
+	 * Generate CSV file
+	 * 
+	 * @param projectId ID of project name
+	 * @param response
+	 * @throws Exception
+	 */
+	@GetMapping(path = "{projectId}/export-projects")
+	public void getProjectsCSV(@PathVariable Long projectId, HttpServletResponse response) throws Exception {
 
-    @GetMapping(path="{projectId}/export-projects")
-    public void getProjectsCSV(@PathVariable Long projectId, HttpServletResponse response) throws Exception {
+		// set file name and content type
+		String filename = "projects.csv";
 
-        //set file name and content type
-        String filename = "projects.csv";
+		response.setContentType("text/csv");
+		response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
 
-        response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + filename + "\"");
+		// create a csv writer
+		StatefulBeanToCsv<Project> writer = new StatefulBeanToCsvBuilder<Project>(response.getWriter())
+				.withQuotechar(CSVWriter.NO_QUOTE_CHARACTER).withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+				.withOrderedResults(false).build();
 
-        //create a csv writer
-        StatefulBeanToCsv<Project> writer = new StatefulBeanToCsvBuilder<Project>(response.getWriter())
-                .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
-                .withOrderedResults(false)
-                .build();
-
-        //write all users to csv file
-        writer.write(userService.geProjectById(projectId));
-    }
+		// write all users to csv file
+		writer.write(userService.geProjectById(projectId));
+	}
 }

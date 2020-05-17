@@ -8,16 +8,16 @@ import javax.validation.constraints.Size;
 public class TaskPostModel {
 
 	public TaskState getTaskState() {
-	return taskState;
-}
+		return taskState;
+	}
 
-public void setTaskState(TaskState taskState) {
-	this.taskState = taskState;
-}
+	public void setTaskState(TaskState taskState) {
+		this.taskState = taskState;
+	}
 
-	@Size(min=1)
+	@Size(min = 1)
 	private String taskName;
-	@Size(min=1)
+	@Size(min = 1)
 	private String taskDescription;
 	@Column(columnDefinition = "varchar(7) default 'NORMAL'")
 	@Enumerated(EnumType.STRING)
@@ -26,7 +26,6 @@ public void setTaskState(TaskState taskState) {
 	@Column(columnDefinition = "varchar(12) default 'TO_DO'")
 	@Enumerated(EnumType.STRING)
 	private TaskState taskState;
-	
 
 	public TaskPriorityLevel getTaskPriority() {
 		return taskPriority;
@@ -52,5 +51,4 @@ public void setTaskState(TaskState taskState) {
 		this.taskDescription = taskDescription;
 	}
 
-	
-	}
+}

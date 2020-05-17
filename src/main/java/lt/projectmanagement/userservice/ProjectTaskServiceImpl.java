@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Main logic for CRUD operations, where all business logic is executed
+ *
+ */
 @Service
 public class ProjectTaskServiceImpl implements ProjectTaskService {
 
@@ -22,20 +26,26 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 	@Autowired
 	Project projectModel;
-	
-	@Autowired 
+
+	@Autowired
 	Task taskModel;
 
+	/**
+	 * Creates new project
+	 */
 	@Override
 	public Project createProject(ProjectPostModel project) {
 		projectModel.setId(null); // Null'as yra tam, kad sukurtu nauja objekta, nenunulinus atnaujina ta pati
 									// objekta
 		projectModel.setProjectName(project.getProjectName());
 		projectModel.setProjectDescription(project.getProjectDescription());
-		projectModel.setProjectStatus(project.getProjectStatus() );
+		projectModel.setProjectStatus(project.getProjectStatus());
 		return repositoryProject.save(projectModel);
 	}
 
+	/**
+	 * Display list of all projects
+	 */
 	@Override
 	public List<DisplayAllProjectModel> getAllProjects() {
 		List<DisplayAllProjectModel> listOfProjects = new ArrayList<>();
@@ -57,6 +67,9 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		return listOfProjects;
 	}
 
+	/**
+	 * Deletes project by id
+	 */
 	@Override
 	public void deleteProjectById(Long id) {
 		try {
@@ -66,6 +79,9 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		}
 	}
 
+	/**
+	 * Updates project and returns newly updated project
+	 */
 	@Override
 	public Project projectUpdate(Long id, ProjectPostModel projectPost) {
 		Optional<Project> foundProject = repositoryProject.findById(id);
@@ -83,26 +99,38 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		return projectRequested;
 	}
 
+	/**
+	 * Returns project by id
+	 */
 	@Override
 	public Project geProjectById(Long id) {
 		Optional<Project> findById = repositoryProject.findById(id);
 		return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
 	}
 
-	// TASKS
-
+	/**
+	 * Returns project by id
+	 * 
+	 * @param projectId ID of specific project
+	 * @return returns specific project
+	 */
 	private Optional<Project> getProjectById(Long projectId) {
 		Optional<Project> findProjectById = Optional.of(
 				repositoryProject.findById(projectId).orElseThrow(() -> new UserNotFoundException("id:" + projectId)));
 		return findProjectById;
 	}
 
-	
+	/**
+	 * Returns list of all tasks
+	 */
 	public List<Task> getAllTasks(Long projectId) {
 		Optional<Project> project = getProjectById(projectId);
 		return project.get().getListOfTasks();
 	}
 
+	/**
+	 * Returns specific task
+	 */
 	@Override
 	public Task getSpecificTask(Long projectId, Long taskId) {
 		List<Task> listOfTasks = getAllTasks(projectId);
@@ -111,57 +139,77 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		return orElseThrow;
 
 	}
+
+	/**
+	 * Creates new task in project
+	 */
 	public Task createTask(TaskPostModel task, Project project) {
-		taskModel.setId(null); 
+		taskModel.setId(null);
 		taskModel.setProject(project);
 		taskModel.setTaskPriority(task.getTaskPriority());
 		taskModel.setTaskName(task.getTaskName());
 		taskModel.setTaskDescription(task.getTaskDescription());
 		taskModel.setTaskState(task.getTaskState());
 		return repositoryTask.save(taskModel);
-}
+	}
+
+	/**
+	 * @return Returns list of all tasks
+	 */
 	public List<Task> getAllTasks() {
 		List<Task> listOfTasks = new ArrayList<>();
 		Iterable<Task> findAllTasks = repositoryTask.findAll();
 		findAllTasks.forEach(listOfTasks::add);
 		return listOfTasks;
 	}
+
+	/**
+	 * Deletes task by ID and project
+	 */
 	@Override
 	public void deleteTaskById(Long id, Project project) {
 		try {
-		repositoryTask.deleteById(id);
+			repositoryTask.deleteById(id);
 		} catch (Exception e) {
 			throw new UserNotFoundException("Id:" + id);
 		}
-		}
-		@Override
-		public Task taskUpdate(Long id, TaskPostModel taskPost, Project project) {
-			Optional<Task> foundTask = repositoryTask.findById(id);
-			Task taskRequested = foundTask.get();
-			if(taskPost.getTaskName() != null) {
-				taskRequested.setTaskName(taskPost.getTaskName());
-			}
-			if(taskPost.getTaskDescription() != null) {
-				taskRequested.setTaskDescription(taskPost.getTaskDescription());
-			}
-			if(taskPost.getTaskState() != null) {
-				taskRequested.setTaskState(taskPost.getTaskState());
-			}
-			if(taskPost.getTaskPriority() != null) {
-				taskRequested.setTaskPriority(taskPost.getTaskPriority());;
-			}
-			
-
-			try {
-				repositoryTask.save(taskRequested);
-			} catch (Exception e) {
-				throw new UserNotFoundException("id:" + id);
-			}
-			return taskRequested;
-		}
-		@Override
-		public Task geTaskById(Long id) {
-			Optional<Task> findById = repositoryTask.findById(id);
-			return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
-		}
 	}
+
+	/**
+	 * Updates task field
+	 */
+	@Override
+	public Task taskUpdate(Long id, TaskPostModel taskPost, Project project) {
+		Optional<Task> foundTask = repositoryTask.findById(id);
+		Task taskRequested = foundTask.get();
+		if (taskPost.getTaskName() != null) {
+			taskRequested.setTaskName(taskPost.getTaskName());
+		}
+		if (taskPost.getTaskDescription() != null) {
+			taskRequested.setTaskDescription(taskPost.getTaskDescription());
+		}
+		if (taskPost.getTaskState() != null) {
+			taskRequested.setTaskState(taskPost.getTaskState());
+		}
+		if (taskPost.getTaskPriority() != null) {
+			taskRequested.setTaskPriority(taskPost.getTaskPriority());
+			;
+		}
+
+		try {
+			repositoryTask.save(taskRequested);
+		} catch (Exception e) {
+			throw new UserNotFoundException("id:" + id);
+		}
+		return taskRequested;
+	}
+
+	/**
+	 * Returns task by id
+	 */
+	@Override
+	public Task geTaskById(Long id) {
+		Optional<Task> findById = repositoryTask.findById(id);
+		return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
+	}
+}

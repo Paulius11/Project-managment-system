@@ -14,8 +14,6 @@ public interface ProjectTaskService {
 
 	List<DisplayAllProjectModel> getAllProjects();
 
-//	List<Project> getProjectByName(String name);
-
 	void deleteProjectById(Long id);
 
 	Project projectUpdate(Long id, ProjectPostModel projectPost);
@@ -25,12 +23,6 @@ public interface ProjectTaskService {
 	Project geProjectById(Long projectId);
 
 	List<Task> getAllTasks(Long projectId);
-	
-	//void deleteTaskById(Long id);
-	
-	//Task taskUpdate(Long id, TaskPostModel taskPost);
-	
-	//Task createTask(TaskPostModel taskPost);
 
 	Task getSpecificTask(Long projectId, Long taskId);
 
