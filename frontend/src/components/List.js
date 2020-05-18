@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust, faPlusSquare, faFileExport } from '@fortawesome/free-solid-svg-icons';
@@ -142,7 +142,35 @@ export default class List extends Component {
 
         const { lists } = this.state;
 
+        function Example() {
+            const [show, setShow] = useState(false);
 
+            const handleClose = () => setShow(false);
+            const handleShow = () => setShow(true);
+
+            return (
+                <>
+                    <Button variant="primary" onClick={handleShow}>
+                        Launch demo modal
+                    </Button>
+
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={handleClose}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </>
+            );
+        }
 
         // Get current posts -- pagination
         const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
@@ -172,12 +200,12 @@ export default class List extends Component {
                     currentPosts.map(project => {
                         return (
                             <tr key={project.id}>
-                                
+
                                 <td>{project.id} </td>
                                 <td>{project.projectName} </td>
                                 <td><Markup content={project.projectDescription} /></td>
                                 <td align="center"> {project.projectStatus === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
-                                <td align="center"> {project.incopleteTasks  === 0? <Badge pill variant="success"><p className="logo" data-tip= {`${project.incopleteTasks}/${project.totalTasks}`} >✔</p><ReactTooltip /></Badge>: <Badge pill variant="secondary" ><p className="logo" data-tip={`${project.incopleteTasks}/${project.totalTasks}`}>✘</p><ReactTooltip /></Badge>}</td>
+                                <td align="center"> {project.incopleteTasks === 0 ? <Badge pill variant="success"><p className="logo" data-tip={`${project.incopleteTasks}/${project.totalTasks}`} >✔</p><ReactTooltip /></Badge> : <Badge pill variant="secondary" ><p className="logo" data-tip={`${project.incopleteTasks}/${project.totalTasks}`}>✘</p><ReactTooltip /></Badge>}</td>
 
                                 <td>
                                     <ButtonGroup>
