@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Markup } from 'interweave';
 
 export default function TaskElementPopup(props) {
@@ -21,46 +19,68 @@ export default function TaskElementPopup(props) {
 
   return (
     <>
-
-      <Button className={"p-0"} variant={getVariant(props.task.taskPriority)} onClick={handleShow}>
-        <FontAwesomeIcon icon={faEye} onClick={handleShow} />
-      </Button>
+      <div
+        className={"p-0"}
+        variant={getVariant(props.task.taskPriority)}
+        onClick={handleShow}
+      >
+        {props.children}
+      </div>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title><Col><Markup content={props.task.taskName} /></Col></Modal.Title>
+          <Modal.Title>
+            <Col>
+              <Markup content={props.task.taskName} />
+            </Col>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
           <Container>
             <Row>
-              <Col><b>Task ID:</b></Col>
+              <Col>
+                <b>Project ID:</b>
+              </Col>
+              <Col>{props.projectId}</Col>
+            </Row>
+            <Row>
+              <Col>
+                <b>Task ID:</b>
+              </Col>
               <Col>{props.task.id}</Col>
             </Row>
             <Row>
-              <Col><b>Task Description:</b></Col>
-              <Col><Markup content={props.task.taskDescription} /></Col>
+              <Col>
+                <b>Task Description:</b>
+              </Col>
+              <Col>
+                <Markup content={props.task.taskDescription} />
+              </Col>
             </Row>
             <Row>
-              <Col><b>Task Priority:</b></Col>
+              <Col>
+                <b>Task Priority:</b>
+              </Col>
               <Col>{props.task.taskPriority}</Col>
             </Row>
             <Row>
-              <Col><b>Task State:</b></Col>
+              <Col>
+                <b>Task State:</b>
+              </Col>
               <Col>{props.task.taskState}</Col>
             </Row>
             <Row>
-              <Col><b>Task Create Time:</b></Col>
+              <Col>
+                <b>Task Create Time:</b>
+              </Col>
               <Col>{props.task.taskCreateTime}</Col>
             </Row>
             <Row>
-              <Col><b>Task Modify Time:</b></Col>
+              <Col>
+                <b>Task Modify Time:</b>
+              </Col>
               <Col>{props.task.taskModifyTime}</Col>
             </Row>
           </Container>
-
-
-
-
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

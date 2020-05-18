@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Form, Container, Row, Col } from 'react-bootstrap';
+import { Card, Form, Container, Row, Col, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -10,6 +10,7 @@ import TaskElement from './TaskElement'
 import TaskBoxTarget from './TaskBoxTarget'
 import Backend from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
+import ReactTooltip from "react-tooltip";
 
 toast.configure()
 export default class TaskList extends Component {
@@ -24,8 +25,8 @@ export default class TaskList extends Component {
             lists: [],
             search: ''
         }
-        this.api = `http://localhost:9090/api/projects/${params.projectId}/tasks`;
         this.projectId = params.projectId;
+        this.api = `http://localhost:9090/api/projects/${this.projectId}/tasks`;
     }
 
     componentDidMount() {
@@ -91,7 +92,7 @@ export default class TaskList extends Component {
             this.state.lists.map(task => {
                 if (task.taskState == taskState)
                     return (
-                        <TaskElement key={task.id} task={task} list={this.state.lists} projectid={this.props.match.params.projectId} api={this.api} deleteTask={this.deleteTask} />
+                        <TaskElement key={task.id} task={task} list={this.state.lists} projectid={this.projectId} api={this.api} deleteTask={this.deleteTask} />
                     )
             })
             :
@@ -102,62 +103,88 @@ export default class TaskList extends Component {
 
     render() {
         return (
-            <Container>
-                <Card className={'border border-dark bg-dark text-white'}>
-                    <Card.Body>
-                        <Container>
-                            <Row>
-                                <Col>
-                                    <FontAwesomeIcon icon={faList} /> Task list
-                                </Col>
-                                <Col md="auto">
-                                    <Form.Control
-                                        className={'search-width'}
-                                        onChange={this.handleSearchInput}
-                                        onFocus={this.handleSearchPrepare}
-                                        placeholder="Search ..."
-                                    />
-                                </Col>
-                                <Col xs lg="2">
-                                    <Link to={'addtask/' + this.props.match.params.projectId} className="btn btn-sm btn-outline-light">
-                                        {' '}
-                                        Add task <FontAwesomeIcon icon={faAdjust} />{' '}
-                                    </Link>
-                                    {''}
-                                </Col>
-                            </Row>
-                        </Container>
+          <Container>
+            <Card className={"border border-dark bg-dark text-white"}>
+              <Card.Body>
+                <Container>
+                  <Row>
+                    <Col>
 
-                        <Row style={{ border: '1px solid #49a75f0d' }}>
-                            <DndProvider backend={Backend}>
-                                <Col>
-                                    <div className={'centerText'}>To do </div>
-                                    <br />
-                                    <TaskBoxTarget projectId={this.projectId} getTasks={this.getLists} boxPriority={"TO_DO"}>
-                                        {this.getTaskItems('TO_DO')}
-                                    </TaskBoxTarget>
-                                </Col>
+                    <a data-tip data-for='listOftasks'>
+                      <FontAwesomeIcon icon={faList} /> List of tasks:{" "}
+                      <Badge pill variant="light">
+                        {this.state.lists.length} 
+                      </Badge>{" "}   
+                      </a>
+                      <ReactTooltip id='listOftasks'   effect="float">
+                        <p>Project ID: {this.projectId}</p>
 
-                                <Col>
-                                    <div className={'centerText '}>In progress </div>
-                                    <br />
-                                    <TaskBoxTarget projectId={this.projectId} getTasks={this.getLists}  boxPriority={"IN_PROGRESS"}>
-                                        {this.getTaskItems('IN_PROGRESS')}
-                                    </TaskBoxTarget>
-                                </Col>
-                                <Col>
-                                    <TaskBoxTarget projectId={this.projectId} getTasks={this.getLists} boxPriority={"DONE"}>
-                                        <div className={'centerText'}> Done </div>
-                                        <br />
-                                        {this.getTaskItems('DONE')}
-                                    </TaskBoxTarget>
-                                </Col>
-                            </DndProvider>
-                        </Row>
-                    </Card.Body>
-                </Card>
-            </Container>
-        )
+
+                      </ReactTooltip>
+                    </Col>
+                    <Col md="auto">
+                      <Form.Control
+                        className={"search-width"}
+                        onChange={this.handleSearchInput}
+                        onFocus={this.handleSearchPrepare}
+                        placeholder="Search ..."
+                      />
+                    </Col>
+                    <Col xs lg="2">
+                      <Link
+                        to={"addtask/" + this.projectId}
+                        className="btn btn-sm btn-outline-light"
+                      >
+                        {" "}
+                        Add task <FontAwesomeIcon icon={faAdjust} />{" "}
+                      </Link>
+                      {""}
+                    </Col>
+                  </Row>
+                </Container>
+
+                <Row style={{ border: "1px solid #49a75f0d" }}>
+                  <DndProvider backend={Backend}>
+                    <Col>
+                      <div className={"centerText"}>To do </div>
+                      <br />
+                      <TaskBoxTarget
+                        projectId={this.projectId}
+                        getTasks={this.getLists}
+                        boxPriority={"TO_DO"}
+                      >
+                        {this.getTaskItems("TO_DO")}
+                      </TaskBoxTarget>
+                    </Col>
+
+                    <Col>
+                      <div className={"centerText "}>In progress </div>
+                      <br />
+                      <TaskBoxTarget
+                        projectId={this.projectId}
+                        getTasks={this.getLists}
+                        boxPriority={"IN_PROGRESS"}
+                      >
+                        {this.getTaskItems("IN_PROGRESS")}
+                      </TaskBoxTarget>
+                    </Col>
+                    <Col>
+                      <TaskBoxTarget
+                        projectId={this.projectId}
+                        getTasks={this.getLists}
+                        boxPriority={"DONE"}
+                      >
+                        <div className={"centerText"}> Done </div>
+                        <br />
+                        {this.getTaskItems("DONE")}
+                      </TaskBoxTarget>
+                    </Col>
+                  </DndProvider>
+                </Row>
+              </Card.Body>
+            </Card>
+          </Container>
+        );
 
     }
 }

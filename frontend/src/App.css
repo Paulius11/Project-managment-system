@@ -1,7 +1,3 @@
-* {
-  top: auto;
-bottom: 0px;
-}
 
 .custom-pagination {
     display: inline-flex;
@@ -23,9 +19,20 @@ bottom: 0px;
     justify-content: center;
 }
 
-.alighnLeft {
+/* .alighnLeft {
     display: flex;
     justify-content: space-between;
+} */
+
+.align-right{
+    float: right;
+}
+
+.delete-button {
+    margin-right: 5px;
+}
+.delete-button:hover {
+    color: red;
 }
 
 .search-width {

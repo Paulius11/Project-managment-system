@@ -27,8 +27,14 @@ public class ProjectManagement1Application {
 		SpringApplication.run(ProjectManagement1Application.class, args);
 	}
 
+	/**
+	 * Main java method for creating projects directly from java code
+	 * 
+	 * @param repositoryProject access to repository data
+	 * @param repositoryTasj    access to task data
+	 */
 	@Bean
-	public CommandLineRunner demo(ProjectRepository repositoryProject, TaskRepository taskRepository) {
+	public CommandLineRunner demo(ProjectRepository repositoryProject, TaskRepository repositoryTasj) {
 		return (args) -> {
 			// save a few projects
 			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", ProjectStatus.ACTIVE));
@@ -36,7 +42,7 @@ public class ProjectManagement1Application {
 			repositoryProject.save(new Project("Exciting project-2", "Do something simple-2", ProjectStatus.ACTIVE));
 			repositoryProject.save(new Project("TestProjectName", "TestDescrName", ProjectStatus.ACTIVE));
 
-			taskRepository.save(new Task("New task1", "Task description", TaskPriorityLevel.NORMAL, TaskState.TO_DO,
+			repositoryTasj.save(new Task("New task1", "Task description", TaskPriorityLevel.NORMAL, TaskState.TO_DO,
 					LocalDateTime.now()));
 
 			log.info("fetch project by name:");
