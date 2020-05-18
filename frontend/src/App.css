@@ -19,9 +19,13 @@
     justify-content: center;
 }
 
-.alighnLeft {
+/* .alighnLeft {
     display: flex;
     justify-content: space-between;
+} */
+
+.alighnTaskButtons{
+    float: right;
 }
 
 .search-width {
