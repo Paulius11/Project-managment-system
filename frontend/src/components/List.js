@@ -214,13 +214,14 @@ export default class List extends Component {
                     <Container >
                         <Row>
                             <Col >
-                                <FontAwesomeIcon icon={faList} /> All projects list
+                                <FontAwesomeIcon icon={faList} /> List of projects:   <Badge pill variant="light">{lists.length}</Badge>{' '}
+
                             </Col>
                             <Col md="auto">
                                 <Form.Control className={"search-width"} onChange={this.handleSearchInput} onFocus={this.handleSearchPrepare} placeholder="Search ..." />
                             </Col>
                             <Col xs lg="2">
-                                <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} />  </Link>
+                                <Link to={"add/"} className="btn btn-sm btn-outline-light"> Add project <FontAwesomeIcon icon={faPlusSquare} /></Link>
                             </Col>
                         </Row>
                     </Container>

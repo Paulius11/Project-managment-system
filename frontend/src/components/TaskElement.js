@@ -51,7 +51,7 @@ export default function TaskElement(props) {
                     </ButtonGroup>
                 </td>
             </tr>
-            <TaskElementPopup task={props.task} />
+            <TaskElementPopup task={props.task} projectId={props.projectid} />
         </Card>
     )
 }

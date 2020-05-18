@@ -32,6 +32,10 @@ export default function TaskElementPopup(props) {
         <Modal.Body>
 
           <Container>
+          <Row>
+              <Col><b>Project ID:</b></Col>
+              <Col>{props.projectId}</Col>
+            </Row>
             <Row>
               <Col><b>Task ID:</b></Col>
               <Col>{props.task.id}</Col>
