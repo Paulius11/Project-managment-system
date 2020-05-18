@@ -24,8 +24,15 @@
     justify-content: space-between;
 } */
 
-.alighnTaskButtons{
+.align-right{
     float: right;
+}
+
+.delete-button {
+    margin-right: 5px;
+}
+.delete-button:hover {
+    color: red;
 }
 
 .search-width {

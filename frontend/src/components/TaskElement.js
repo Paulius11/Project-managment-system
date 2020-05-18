@@ -34,7 +34,14 @@ const priority = <Badge variant="light">{props.task.taskPriority}</Badge>
       >
         <div key={props.id}>
           <TaskElementPopup task={props.task} projectId={props.projectid}>
-            <Card.Header>{priority}</Card.Header>
+            <Card.Header>
+              {priority}{" "}
+              <Link className={"align-right"}
+                to={"taskedit/" + props.projectid + "/tasks/" + props.task.id}
+              >
+                <FontAwesomeIcon icon={faEdit} />
+              </Link>
+            </Card.Header>
             <Card.Body>
               <Card.Title>
                 <Markup content={props.task.taskName} />
@@ -44,22 +51,13 @@ const priority = <Badge variant="light">{props.task.taskPriority}</Badge>
               </Card.Text>
             </Card.Body>
           </TaskElementPopup>
-          <ButtonGroup className={"alighnTaskButtons"}>
-            <Link
-              to={"taskedit/" + props.projectid + "/tasks/" + props.task.id}
-              className="btn btn-sm btn-outline-primary"
-            >
-              <FontAwesomeIcon icon={faEdit} />
-            </Link>
-
-            <Button
-              size="sm"
-              variant="outline-danger"
+          <div className={"align-right"}>
+            <div className={" delete-button"}
               onClick={props.deleteTask.bind(this, props.task.id)}
             >
               <FontAwesomeIcon icon={faTrash} />
-            </Button>
-          </ButtonGroup>
+            </div>
+          </div>
         </div>
       </Card>
     );
