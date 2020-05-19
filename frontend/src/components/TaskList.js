@@ -58,7 +58,7 @@ export default class TaskList extends Component {
       this.setInitialState();
     } else {
       let filtered = this.state.listTemp.filter((p) => {
-        return p.taskName.toLowerCase().includes(value.toLowerCase());
+        return p.id.toString().includes(value) || p.taskName.toLowerCase().includes(value.toLowerCase())
       });
       this.setState({
         lists: filtered,
