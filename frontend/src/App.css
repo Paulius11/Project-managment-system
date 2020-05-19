@@ -76,3 +76,14 @@
     /* background-color: rgb(255, 11, 11); */
     height: 90%;
 }
+
+.task-status {
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 5px;
+    border: 1px groove #ffffff94;
+    border-radius: 0.30rem;
+    font-family: monospace;
+
+}

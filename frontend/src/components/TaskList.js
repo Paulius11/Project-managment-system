@@ -146,7 +146,7 @@ export default class TaskList extends Component {
                 <Row style={{ border: "1px solid #49a75f0d" }}>
                   <DndProvider backend={Backend}>
                     <Col>
-                      <div className={"centerText"}>To do </div>
+                      <div className={"centerText task-status "}>TO DO  </div>
                       <br />
                       <TaskBoxTarget
                         projectId={this.projectId}
@@ -158,7 +158,7 @@ export default class TaskList extends Component {
                     </Col>
 
                     <Col>
-                      <div className={"centerText "}>In progress </div>
+                      <div className={"centerText task-status"}>IN PROGRESS </div>
                       <br />
                       <TaskBoxTarget
                         projectId={this.projectId}
@@ -174,7 +174,7 @@ export default class TaskList extends Component {
                         getTasks={this.getLists}
                         boxPriority={"DONE"}
                       >
-                        <div className={"centerText"}> Done </div>
+                        <div className={"centerText task-status"}>DONE </div>
                         <br />
                         {this.getTaskItems("DONE")}
                       </TaskBoxTarget>
