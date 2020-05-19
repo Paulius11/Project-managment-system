@@ -1,6 +1,6 @@
 import React from "react";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Card, ButtonGroup, Button, Badge } from "react-bootstrap";
+import { Card, Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import TaskElementPopup from "./TaskElementPopup";
