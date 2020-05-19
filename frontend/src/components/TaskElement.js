@@ -28,7 +28,7 @@ export default function TaskElement(props) {
       return "light";
     }
     if (priority === "HIGH") {
-      return "warning";
+      return "danger";
     }
   }
 
