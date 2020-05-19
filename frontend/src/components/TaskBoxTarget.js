@@ -46,7 +46,7 @@ export default function TaskBoxTarget(props) {
 
     return (
         <>
-            <div ref={drop} className={'task-container'} style={isOver ? { backgroundColor: 'rgba(255, 0, 0, 0.09)' } : { backgroundColor: '' }}>
+            <div ref={drop} className={'task-container'} style={isOver ? { border: '1px dashed white' } : { backgroundColor: '' }}>
                 {props.children}
             </div>
         </>
