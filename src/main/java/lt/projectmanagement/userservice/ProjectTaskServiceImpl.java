@@ -4,6 +4,9 @@ import lt.projectmanagement.doa.ProjectRepository;
 import lt.projectmanagement.doa.TaskRepository;
 import lt.projectmanagement.exceptions.UserNotFoundException;
 import lt.projectmanagement.model.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,8 @@ import java.util.Optional;
  */
 @Service
 public class ProjectTaskServiceImpl implements ProjectTaskService {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProjectTaskServiceImpl.class);
 
 	@Autowired
 	ProjectRepository repositoryProject;
@@ -38,9 +43,16 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		projectModel.setId(null); // Null'as yra tam, kad sukurtu nauja objekta, nenunulinus atnaujina ta pati
 									// objekta
 		projectModel.setProjectName(project.getProjectName());
+		log.trace("Project name " + project.getProjectName());
 		projectModel.setProjectDescription(project.getProjectDescription());
+		log.trace("Project description " + project.getProjectDescription());
 		projectModel.setProjectStatus(project.getProjectStatus());
-		return repositoryProject.save(projectModel);
+		log.trace("Project status " + project.getProjectStatus());
+		
+		log.info("Saving new project to database");
+		Project save = repositoryProject.save(projectModel);
+		log.info(save.toString());
+		return save;
 	}
 
 	/**
@@ -49,6 +61,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public List<DisplayAllProjectModel> getAllProjects() {
 		List<DisplayAllProjectModel> listOfProjects = new ArrayList<>();
+		log.info("Getting list of all projects: {}", listOfProjects.getClass().hashCode());
 
 		Iterable<Project> findAllProjects = repositoryProject.findAll();
 		findAllProjects.forEach(project -> {
@@ -58,12 +71,20 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			displayAllprojectModel.setProjectDescription(project.getProjectDescription());
 			displayAllprojectModel.setProjectStatus(project.getProjectStatus());
 			displayAllprojectModel.setTotalTasks(project.getListOfTasks().size());
+			log.trace("Project id: " + project.getId());
+			log.trace("Project name: " + project.getProjectName());
+			log.trace("Project description: " + project.getProjectDescription());
+			log.trace("Project status: " + project.getProjectStatus());
+			log.trace("Project total tasks: " + project.getListOfTasks().size());
 			displayAllprojectModel.setIncopleteTasks(
-					project.getListOfTasks().stream().filter(x -> x.getTaskState() != TaskState.DONE).count());
-
+					project.getListOfTasks().stream().
+					peek((x) -> log.debug(x.toString())).
+			filter(x -> x.getTaskState() != TaskState.DONE).count());
 			listOfProjects.add(displayAllprojectModel);
+			
 		});
-
+		log.debug("Adding project to a list is completed");
+		log.debug("Returning list of projects");
 		return listOfProjects;
 	}
 
@@ -73,6 +94,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public void deleteProjectById(Long id) {
 		try {
+			log.info("Deleting project by id: " + id );
 			repositoryProject.deleteById(id);
 		} catch (Exception e) {
 			throw new UserNotFoundException("id:" + id);
@@ -85,6 +107,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public Project projectUpdate(Long id, ProjectPostModel projectPost) {
 		Optional<Project> foundProject = repositoryProject.findById(id);
+
 		Project projectRequested = foundProject.get();
 		projectRequested.setProjectName(projectPost.getProjectName());
 		projectRequested.setProjectDescription(projectPost.getProjectDescription());
@@ -95,7 +118,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			throw new UserNotFoundException("id:" + id);
 
 		}
-
+		log.info("Updating project: " + id );
+		log.debug("Post model {}: " + projectPost);
 		return projectRequested;
 	}
 
@@ -105,6 +129,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public Project geProjectById(Long id) {
 		Optional<Project> findById = repositoryProject.findById(id);
+		log.info("Getting Project by Project ID: " + id );
 		return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
 	}
 
@@ -122,10 +147,14 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 	/**
 	 * Returns list of all tasks
+	 * 
 	 */
 	public List<Task> getAllTasks(Long projectId) {
+		log.info("Getting all tasks by Project ID: {}", projectId);
 		Optional<Project> project = getProjectById(projectId);
-		return project.get().getListOfTasks();
+		List<Task> listOfTasks = project.get().getListOfTasks();
+		log.debug("Getting list of tasks: {}", listOfTasks);
+		return listOfTasks;
 	}
 
 	/**
@@ -133,6 +162,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	 */
 	@Override
 	public Task getSpecificTask(Long projectId, Long taskId) {
+		log.info("Getting info about specific task");
+		log.info("Project ID: {} \nTask ID: {}", projectId, taskId);
 		List<Task> listOfTasks = getAllTasks(projectId);
 		Task orElseThrow = listOfTasks.stream().filter(x -> x.getId() == taskId).findFirst()
 				.orElseThrow(() -> new UserNotFoundException("Task-id:" + taskId));
@@ -144,12 +175,14 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	 * Creates new task in project
 	 */
 	public Task createTask(TaskPostModel task, Project project) {
+		log.info("Creating new task");
 		taskModel.setId(null);
 		taskModel.setProject(project);
 		taskModel.setTaskPriority(task.getTaskPriority());
 		taskModel.setTaskName(task.getTaskName());
 		taskModel.setTaskDescription(task.getTaskDescription());
 		taskModel.setTaskState(task.getTaskState());
+		log.info("Task Model: {}", taskModel);
 		return repositoryTask.save(taskModel);
 	}
 
@@ -157,9 +190,11 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	 * @return Returns list of all tasks
 	 */
 	public List<Task> getAllTasks() {
+		log.info("Getting all tasks");
 		List<Task> listOfTasks = new ArrayList<>();
 		Iterable<Task> findAllTasks = repositoryTask.findAll();
 		findAllTasks.forEach(listOfTasks::add);
+		log.debug("List of tasks:\n{} ", listOfTasks);
 		return listOfTasks;
 	}
 
@@ -170,6 +205,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	public void deleteTaskById(Long id, Project project) {
 		try {
 			repositoryTask.deleteById(id);
+			log.info("Deleting task by Task Id : {}", id);
+			log.debug("In project: {}", project);
 		} catch (Exception e) {
 			throw new UserNotFoundException("Id:" + id);
 		}
@@ -180,6 +217,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	 */
 	@Override
 	public Task taskUpdate(Long id, TaskPostModel taskPost, Project project) {
+		log.info("Updating Task by Task Id: {}", id);
 		Optional<Task> foundTask = repositoryTask.findById(id);
 		Task taskRequested = foundTask.get();
 		if (taskPost.getTaskName() != null) {
@@ -193,9 +231,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		}
 		if (taskPost.getTaskPriority() != null) {
 			taskRequested.setTaskPriority(taskPost.getTaskPriority());
-			;
 		}
-
+		log.debug("Upadating task model: {}", taskPost);
 		try {
 			repositoryTask.save(taskRequested);
 		} catch (Exception e) {
@@ -209,7 +246,9 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	 */
 	@Override
 	public Task geTaskById(Long id) {
+		log.info("Getting Task by Id : {}", id);
 		Optional<Task> findById = repositoryTask.findById(id);
+		log.debug("Found task : {}", findById);
 		return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
 	}
 }

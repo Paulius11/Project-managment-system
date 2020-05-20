@@ -38,8 +38,7 @@
         <appender-ref ref="Console" />
     </root>
  
-    <!-- LOG at TRACE level -->
-    <logger name="lt.projectmanagement.userservice" level="trace" additivity="false">
+    <logger name="lt.projectmanagement.userservice" level="debug" additivity="false" >
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>
