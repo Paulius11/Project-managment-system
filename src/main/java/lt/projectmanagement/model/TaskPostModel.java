@@ -51,4 +51,10 @@ public class TaskPostModel {
 		this.taskDescription = taskDescription;
 	}
 
+	@Override
+	public String toString() {
+		return "TaskPostModel [taskName=" + taskName + ", taskDescription=" + taskDescription + ", taskPriority="
+				+ taskPriority + ", taskState=" + taskState + "]";
+	}
+
 }

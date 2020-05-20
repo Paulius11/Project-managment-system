@@ -68,7 +68,7 @@ export default class List extends Component {
             this.setInitialState()
 
         } else {
-            let filtered = this.state.listTemp.filter((p) => {
+            let filtered = this.state.listTemp.filter((p, a) => {
                 return p.projectName.toLowerCase().includes(value.toLowerCase())
             })
             this.setState({

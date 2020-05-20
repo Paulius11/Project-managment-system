@@ -19,7 +19,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 /**
- * Task controller 
+ * Task controller
  */
 @CrossOrigin("http://localhost:3000")
 @Api(value = "user")

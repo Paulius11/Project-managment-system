@@ -36,6 +36,8 @@ public class ProjectManagement1Application {
 	@Bean
 	public CommandLineRunner demo(ProjectRepository repositoryProject, TaskRepository repositoryTasj) {
 		return (args) -> {
+
+			if (log.isDebugEnabled() ) {
 			// save a few projects
 			repositoryProject.save(new Project("Exciting project-0", "Do something fun-0", ProjectStatus.ACTIVE));
 			repositoryProject.save(new Project("Exciting project-1", "Do something easy-1", ProjectStatus.COMPLETED));
@@ -55,8 +57,9 @@ public class ProjectManagement1Application {
 			for (Project project : repositoryProject.findAll()) {
 				log.info(project.toString());
 			}
-
+		}
 		};
 	}
+		
 
 }

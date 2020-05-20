@@ -1,20 +1,17 @@
-import React, { useState } from 'react'
-import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
-import { Markup } from 'interweave';
+import React, { useState } from "react";
+import { Modal, Button, Container, Row, Col } from "react-bootstrap";
+import { Markup } from "interweave";
+import { Link } from "react-router-dom";
 
 export default function TaskElementPopup(props) {
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function getVariant(taskPriority) {
-    if (taskPriority == "LOW")
-      return "outline-secondary"
-    if (taskPriority == "NORMAL")
-      return "outline-success"
-    if (taskPriority == "HIGH")
-      return "outline-danger"
+    if (taskPriority == "LOW") return "outline-secondary";
+    if (taskPriority == "NORMAL") return "outline-success";
+    if (taskPriority == "HIGH") return "outline-danger";
   }
 
   return (
@@ -83,6 +80,12 @@ export default function TaskElementPopup(props) {
           </Container>
         </Modal.Body>
         <Modal.Footer>
+          <Link
+            className={"align-left btn btn btn-primary"}
+            to={"taskedit/" + props.projectId + "/tasks/" + props.task.id}
+          >
+            Edit
+          </Link>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -91,4 +94,3 @@ export default function TaskElementPopup(props) {
     </>
   );
 }
-

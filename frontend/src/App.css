@@ -1,22 +1,21 @@
-
 .custom-pagination {
-    display: inline-flex;
-    list-style: none;
+  display: inline-flex;
+  list-style: none;
 }
 
 .custom-pagination a {
-    /* display: block; */
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #1b5c9c;
-    /* background-color: #fff; */
-    border: 1px solid #17324d;
+  /* display: block; */
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #1b5c9c;
+  /* background-color: #fff; */
+  border: 1px solid #17324d;
 }
 
 .centerText {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 /* .alighnLeft {
@@ -24,55 +23,63 @@
     justify-content: space-between;
 } */
 
-.align-right{
-    float: right;
+.align-right {
+  float: right;
 }
 
 .delete-button {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 .delete-button:hover {
-    color: red;
+  color: red;
 }
 
 .search-width {
-    width: '90%';
-    height: 2em;
-    margin-bottom: 1em;
+  width: "90%";
+  height: 2em;
+  margin-bottom: 1em;
 }
 
 .pagination-options {
-    margin-top: 0.2em;
-    width: auto;
+  margin-top: 0.2em;
+  width: auto;
 }
 
 .kortele {
-    border-radius: 0.25rem;
-    box-shadow: 0 0 5px 2px rgba(146, 120, 120, 0.3);
-    background-color: white;
-    transform-style: preserve-3d;
-    transition: 150ms;
-    cursor: pointer;
-    transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0));
+  border-radius: 0.25rem;
+  box-shadow: 0 0 5px 2px rgba(146, 120, 120, 0.3);
+  background-color: white;
+  transform-style: preserve-3d;
+  transition: 150ms;
+  cursor: pointer;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0))
+    translateY(var(--translate-y, 0));
 }
 
 .kortele:hover {
-    --translate-y: -2px;
-    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5);
+  --translate-y: -2px;
+  box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5);
 }
 .logo {
-    height: 0.1px;
+  height: 0.1px;
 }
 
 .particle-canvas {
-    position: fixed !important;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+  position: fixed !important;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 .task-container {
+  /* background-color: rgb(255, 11, 11); */
+  height: 90%;
+}
 
-    /* background-color: rgb(255, 11, 11); */
-    height: 90%;
+.task-status {
+  padding: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 5px;
+  font-family: monospace;
 }
