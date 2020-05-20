@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 @Service
 public class ProjectTaskServiceImpl implements ProjectTaskService {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(ProjectTaskServiceImpl.class);
 
 	@Autowired
@@ -48,7 +48,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		log.trace("Project description " + project.getProjectDescription());
 		projectModel.setProjectStatus(project.getProjectStatus());
 		log.trace("Project status " + project.getProjectStatus());
-		
+
 		log.info("Saving new project to database");
 		Project save = repositoryProject.save(projectModel);
 		log.info(save.toString());
@@ -76,12 +76,10 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			log.trace("Project description: " + project.getProjectDescription());
 			log.trace("Project status: " + project.getProjectStatus());
 			log.trace("Project total tasks: " + project.getListOfTasks().size());
-			displayAllprojectModel.setIncopleteTasks(
-					project.getListOfTasks().stream().
-					peek((x) -> log.debug(x.toString())).
-			filter(x -> x.getTaskState() != TaskState.DONE).count());
+			displayAllprojectModel.setIncopleteTasks(project.getListOfTasks().stream()
+					.peek((x) -> log.debug(x.toString())).filter(x -> x.getTaskState() != TaskState.DONE).count());
 			listOfProjects.add(displayAllprojectModel);
-			
+
 		});
 		log.debug("Adding project to a list is completed");
 		log.debug("Returning list of projects");
@@ -94,7 +92,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public void deleteProjectById(Long id) {
 		try {
-			log.info("Deleting project by id: " + id );
+			log.info("Deleting project by id: " + id);
 			repositoryProject.deleteById(id);
 		} catch (Exception e) {
 			throw new UserNotFoundException("id:" + id);
@@ -118,7 +116,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			throw new UserNotFoundException("id:" + id);
 
 		}
-		log.info("Updating project: " + id );
+		log.info("Updating project: " + id);
 		log.debug("Post model {}: " + projectPost);
 		return projectRequested;
 	}
@@ -129,7 +127,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 	@Override
 	public Project geProjectById(Long id) {
 		Optional<Project> findById = repositoryProject.findById(id);
-		log.info("Getting Project by Project ID: " + id );
+		log.info("Getting Project by Project ID: " + id);
 		return findById.orElseThrow(() -> new UserNotFoundException("id:" + id));
 	}
 
