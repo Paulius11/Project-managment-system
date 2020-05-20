@@ -4,6 +4,7 @@ node_modules/
 testDB.*
 run_project.ps1
 ../package-lock.json
+logs/
 
 HELP.md
 target/
