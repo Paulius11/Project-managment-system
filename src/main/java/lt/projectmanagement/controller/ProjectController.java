@@ -34,7 +34,11 @@ public class ProjectController {
 	ProjectTaskService userService;
 	private Project createProject;
 
-	@ApiOperation(value = "Get users", notes = "Returns registered users.")
+	/**
+	 * Returns list of project names
+	 * @return if list is return show HTTP OK code
+	 */
+	@ApiOperation(value = "Get users", notes = "Returns project list.")
 	@GetMapping()
 	public ResponseEntity<List<DisplayAllProjectModel>> getAllProject() {
 		return new ResponseEntity<List<DisplayAllProjectModel>>(userService.getAllProjects(), HttpStatus.OK);
@@ -54,7 +58,7 @@ public class ProjectController {
 
 	/**
 	 * Creates new project via POST method
-	 * 
+	 *  Adds to response 'Header Location': http://localhost:9090/api/projects/{id}
 	 * @param projectPost data from ProjectPostModel
 	 * @return Location URI of newly created project
 	 */
@@ -63,7 +67,7 @@ public class ProjectController {
 	public ResponseEntity<Object> createProject(@Valid @RequestBody ProjectPostModel projectPost) {
 		createProject = userService.createProject(projectPost);
 
-		// Adds to response 'Header Location': http://localhost:9090/api/projects/{id}
+
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(createProject.getId()).toUri();
 		return ResponseEntity.created(location).build();
