@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust, faPlusSquare, faFileExport } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
