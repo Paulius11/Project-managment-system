@@ -38,4 +38,12 @@ public class ProjectPostModel {
 		this.projectStatus = projectStatus;
 	}
 
+	@Override
+	public String toString() {
+		return "ProjectPostModel [projectName=" + projectName + ", projectDescription=" + projectDescription
+				+ ", projectStatus=" + projectStatus + "]";
+	}
+	
+	
+
 }

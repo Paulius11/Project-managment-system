@@ -117,7 +117,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 		}
 		log.info("Updating project: " + id);
-		log.debug("Post model {}: " + projectPost);
+		log.debug("Post model {}: ", projectPost);
 		return projectRequested;
 	}
 
