@@ -16,6 +16,7 @@
     "node-modules": "^1.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
+    "react-confirm-alert": "^2.6.1",
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.13.1",

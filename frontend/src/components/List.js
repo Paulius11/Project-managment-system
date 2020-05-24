@@ -9,12 +9,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../App.css';
 import { Markup } from 'interweave';
 import ReactTooltip from "react-tooltip";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 toast.configure()
 export default class List extends Component {
 
 
     constructor(props) {
         super(props);
+
         this.state = {
             lists: [],
             search: '',
@@ -23,7 +27,10 @@ export default class List extends Component {
         }
         this.api = "http://localhost:9090/api/projects";
 
+
     }
+
+
     componentDidMount() {
         this.getLists();
     }
@@ -137,40 +144,30 @@ export default class List extends Component {
 
     }
 
+    submit = (id) => {
+        confirmAlert({
+            title: 'Confirm to delete project',
+            message: 'Are you sure to delete it?.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.deleteProject(id)
+                },
+                {
+                    label: 'No'
+                }
+            ]
+        });
+    };
+
+
 
     render() {
 
         const { lists } = this.state;
 
-        function Example() {
-            const [show, setShow] = useState(false);
 
-            const handleClose = () => setShow(false);
-            const handleShow = () => setShow(true);
-
-            return (
-                <>
-                    <Button variant="primary" onClick={handleShow}>
-                        Launch demo modal
-                    </Button>
-
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={handleClose}>
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </>
-            );
-        }
+        //Modal should pop up as confirmation
 
         // Get current posts -- pagination
         const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
@@ -196,9 +193,11 @@ export default class List extends Component {
 
         const listOfItems =
             (
+
                 lists.length ?
                     currentPosts.map(project => {
                         return (
+
                             <tr key={project.id}>
 
                                 <td>{project.id} </td>
@@ -211,15 +210,16 @@ export default class List extends Component {
                                     <ButtonGroup>
                                         <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
-                                        <Button size="sm" variant="outline-danger" onClick={this.deleteProject.bind(this, project.id)}>
+                                        <Button size="sm" variant="outline-danger" onClick={this.submit.bind(project.id)}>
                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
+
                                         <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
                                         <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
                                         <Button size="sm" variant="outline-success" onClick={this.getProjectCsv.bind(this, project.id)}> <FontAwesomeIcon icon={faFileExport} /></Button>
 
                                     </ButtonGroup>
                                 </td>
-                            </tr>)
+                            </tr >)
                     })
                     :
                     null

@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faUndo, faSitemap, faList } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../App.css';
+
 
 toast.configure()
 export default class Project extends Component {
@@ -90,6 +89,8 @@ export default class Project extends Component {
 
         return this.props.history.push("/list");
     };
+
+
 
 
     render() {
