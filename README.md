@@ -22,7 +22,7 @@ http://localhost:9090/h2-console
 4.	Maven is used for Dependeny managment(4.0.0)
 
 #### Project documentation location
-\Project-managment-system\doc
+..\Project-managment-system\doc
 
 #### Installation:
 •	Open up your favorite terminal and write, git clone https://github.com/Paulius11/Project-managment-system.git
