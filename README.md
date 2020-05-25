@@ -25,8 +25,10 @@ http://localhost:9090/h2-console
 
 #### In order to run Spring Project
 cd ..\Project-managment-system
+
 mvn spring-boot:run
 
 #### In order to run React
 cd ..\Project-managment-system\frontend
+
 npm start
