@@ -1,20 +1,34 @@
 package data;
 
+import java.util.ArrayList;
+
 public class DataSQL {
 
 	public static void main(String[] args) {
 
-		for (int i = 1; i <= 100; ++i) {
+		ArrayList<String> arrList = new ArrayList<>();
+		ArrayList<String> taskList = new ArrayList<>();
+		String sql = null;
+		String task = null;
 
-			System.out.println(i + "," + "'PROJEKTAS_" + JavaRandom.numb() + "'," + JavaRandom.mainProject_Descript()
+		for (int i = 1; i <= 1000; ++i) {
+
+			sql = (i + "," + "'PROJEKTAS_" + JavaRandom.numb() + "'," + JavaRandom.mainProject_Descript()
 					+ JavaRandom.mainProject_State());
+			arrList.add(sql);
 
-			for (int j = 1; j <= 10; ++j) {
+			for (int j = 1; j <= 200; ++j) {
 
-				System.out.println(j + ", " + i + ", " + JavaRandom.mainTask_Name() + JavaRandom.mainTask_Description()
+				task = (j + ", " + i + ", " + JavaRandom.mainTask_Name() + JavaRandom.mainTask_Description()
 						+ JavaRandom.mainTask_Priority() + " curent_timestamp()," + " curent_timestamp(),"
 						+ JavaRandom.mainTasc_State());
+				taskList.add(sql);
 			}
+
 		}
+		arrList.stream().forEach(x -> System.out.println(x));
+		taskList.stream().forEach(x -> System.out.println(x));
+
 	}
+
 }
