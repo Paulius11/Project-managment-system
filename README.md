@@ -1,18 +1,31 @@
-# Project-managment-system
-Projektų užduočių valdymo programa
+# React and Spring Boot Project Management System
 
-### Svetaine prieinama
+#### Website available
 http://localhost:3000/
-
-
- Būtinas padaryti dalykas pirma karta pasicloninus repozitoriją frontend aplanke iškviesti konsolę ir įrašyti komandą "npm install"
-
-
-####  Kaip pasipulint info
-https://gist.github.com/CristinaSolana/1885435
 
 #### Swager API
 http://localhost:9090/swagger-ui.html
+
 ####  H2 database
 http://localhost:9090/h2-console
+
+#### Funcionality: 
+##### As a user, you are able to create/update/delete Project/Task
+##### As a user, you are able to mark existing Project/Task status
+##### As a user, you are able to mark existing Project/Task importance
+##### As a user, you are able to export Project/Task data in CSV format
+
+#### Technical Stack:
+1.	Spring Boot Framework for backend (2.2.6)
+2.	H2 memory data base (H2-Database 1.4.200)
+3.	React js for frontend (16.13.1)
+4.	Maven is used for Dependeny managment(4.0.0)
+#### Installation:
+•	Open up your favorite terminal and write, git clone https://github.com/Paulius11/Project-managment-system.git
+
+#### In order to run Spring Project
+cd .....
+
+#### In order to run React
+cd .....
 
