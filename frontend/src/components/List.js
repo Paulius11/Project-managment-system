@@ -144,14 +144,19 @@ export default class List extends Component {
 
     }
 
-    submit = (id) => {
+    submit = (projectId) => {
         confirmAlert({
             title: 'Confirm to delete project',
             message: 'Are you sure to delete it?.',
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.deleteProject(id)
+                    onClick: () => {
+                        this.deleteProject(projectId)
+                        console.log(projectId)
+                    }
+
+
                 },
                 {
                     label: 'No'
@@ -210,7 +215,7 @@ export default class List extends Component {
                                     <ButtonGroup>
                                         <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
-                                        <Button size="sm" variant="outline-danger" onClick={this.submit.bind(project.id)}>
+                                        <Button size="sm" variant="outline-danger" onClick={this.submit.bind(this, project.id)}>
                                             <FontAwesomeIcon icon={faTrash} /> </Button>{''}
 
                                         <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
