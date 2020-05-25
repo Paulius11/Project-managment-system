@@ -24,8 +24,9 @@ http://localhost:9090/h2-console
 •	Open up your favorite terminal and write, git clone https://github.com/Paulius11/Project-managment-system.git
 
 #### In order to run Spring Project
-cd .....
+cd ..\Project-managment-system
+mvn spring-boot:run
 
 #### In order to run React
-cd .....
-
+cd ..\Project-managment-system\frontend
+npm start
