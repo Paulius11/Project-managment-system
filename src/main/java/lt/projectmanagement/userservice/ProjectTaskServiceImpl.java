@@ -85,7 +85,6 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		log.debug("Returning list of projects");
 		return listOfProjects;
 	}
-
 	/**
 	 * Deletes project by id
 	 */
