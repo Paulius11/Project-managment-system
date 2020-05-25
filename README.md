@@ -17,7 +17,7 @@ http://localhost:9090/h2-console
 
 #### Technical Stack:
 1.	Spring Boot Framework for backend (2.2.6)
-2.	H2 memory data base (H2-Database 1.4.200)
+2.	H2 memory data base (1.4.200)
 3.	React js for frontend (16.13.1)
 4.	Maven is used for Dependeny managment(4.0.0)
 #### Installation:
