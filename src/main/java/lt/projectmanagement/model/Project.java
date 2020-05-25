@@ -1,30 +1,28 @@
 package lt.projectmanagement.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import com.opencsv.bean.CsvBindByPosition;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Component
 public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@CsvBindByPosition(position = 1)
 	private Long id;
+	@CsvBindByPosition(position = 2)
 	private String projectName;
+	@CsvBindByPosition(position = 3)
 	private String projectDescription;
 	@Enumerated(EnumType.STRING)
+	@CsvBindByPosition(position = 4)
 	private ProjectStatus projectStatus;
 
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	@CsvBindByPosition(position = 5)
 	private List<Task> listOfTasks;
 
 	protected Project() {
