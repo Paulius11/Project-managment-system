@@ -248,7 +248,7 @@ export default class List extends Component {
         let loadingDisplay = (
         <tr>
             <td colspan={6} className="align-text" id="spinner">
-            <Spinner animation="border"  role="status">
+            <Spinner animation="border"  role="status" variant="light">
             <span className="sr-only center">Loading...</span>
             </Spinner>
             </td>
