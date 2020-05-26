@@ -217,7 +217,7 @@ export default class List extends Component {
                                 <td align="center"> {project.projectStatus === "ACTIVE" ? <Badge pill variant="success">Active</Badge> : <Badge pill variant="secondary">Completed</Badge>} </td>
                                 <td align="center"> {project.incopleteTasks === 0 ? <Badge pill variant="success"><p className="logo" data-tip={`${project.incopleteTasks}/${project.totalTasks}`} >✔</p><ReactTooltip /></Badge> : <Badge pill variant="secondary" ><p className="logo" data-tip={`${project.incopleteTasks}/${project.totalTasks}`}>✘<Badge> {project.totalTasks}</Badge> </p><ReactTooltip /></Badge>}</td>
 
-                                <td>
+                                <td align="center">
                                     <ButtonGroup>
                                         <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
 
@@ -283,8 +283,8 @@ export default class List extends Component {
                                 <td>Project Name</td>
                                 <td>Project Description</td>
                                 <td>Project Status</td>
-                                <td>Tasks</td>
-                                <td>Actions</td>
+                                <td align="center">Tasks</td>
+                                <td align="center">Actions</td>
                             </tr>
                             {this.state.loading && loadingDisplay  }
                         </thead>
