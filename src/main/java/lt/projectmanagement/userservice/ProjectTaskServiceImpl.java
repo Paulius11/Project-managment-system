@@ -51,7 +51,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
 		log.info("Saving new project to database");
 		Project save = repositoryProject.save(projectModel);
-		log.info(save.toString());
+		log.debug("Project Model: {}", projectModel);
+		log.debug(save.toString());
 		return save;
 	}
 
@@ -85,6 +86,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		log.debug("Returning list of projects");
 		return listOfProjects;
 	}
+
 	/**
 	 * Deletes project by id
 	 */
@@ -179,8 +181,10 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 		taskModel.setTaskName(task.getTaskName());
 		taskModel.setTaskDescription(task.getTaskDescription());
 		taskModel.setTaskState(task.getTaskState());
-		log.info("Task Model: {}", taskModel);
-		return repositoryTask.save(taskModel);
+		log.debug("Task Model: {}", taskModel);
+		Task save = repositoryTask.save(taskModel);
+		log.debug(save.toString());
+		return save;
 	}
 
 	/**
