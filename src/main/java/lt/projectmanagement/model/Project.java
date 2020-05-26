@@ -9,9 +9,9 @@ import java.util.List;
 @Entity
 @Component
 public class Project {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@CsvBindByPosition(position = 1)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@CsvBindByPosition(position = 2)
 	private String projectName;
@@ -25,7 +25,7 @@ public class Project {
 	@CsvBindByPosition(position = 5)
 	private List<Task> listOfTasks;
 
-	protected Project() {
+	public Project() {
 	};
 
 	public Project(String name, String description, ProjectStatus projectStatus) {
