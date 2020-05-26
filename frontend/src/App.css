@@ -83,3 +83,9 @@
   margin-top: 5px;
   font-family: monospace;
 }
+
+
+.align-text {
+  text-align: center;
+  border-style: none !important;
+}

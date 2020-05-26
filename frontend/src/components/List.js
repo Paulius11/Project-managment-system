@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col, Modal } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust, faPlusSquare, faFileExport } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -23,7 +23,8 @@ export default class List extends Component {
             lists: [],
             search: '',
             currentPage: 1,
-            postsPerPage: 15
+            postsPerPage: 15,
+            loading: true
         }
         this.api = "http://localhost:9090/api/projects";
 
@@ -33,12 +34,17 @@ export default class List extends Component {
 
     componentDidMount() {
         this.getLists();
+
     }
 
     getLists() {
         axios.get(this.api)
             .then((data) => {
-                this.setState({ lists: data.data });
+                this.setState({ 
+                    lists: data.data,
+                    loading: false
+                
+                });
 
             })
             .catch((error) => {
@@ -239,10 +245,19 @@ export default class List extends Component {
             <option>50</option>
         </Form.Control>)
 
+        let loadingDisplay = (
+        <tr>
+            <td colspan={6} className="align-text" id="spinner">
+            <Spinner animation="border"  role="status">
+            <span className="sr-only center">Loading...</span>
+            </Spinner>
+            </td>
+         </tr>)
+
         return (
 
             <Card className={"border border-dark bg-dark text-white"} >
-
+                
                 <Card.Body>
                     <Container >
                         <Row>
@@ -258,6 +273,7 @@ export default class List extends Component {
                             </Col>
                         </Row>
                     </Container>
+                    
 
                     <Table bordered hover striped variant="dark">
 
@@ -270,6 +286,7 @@ export default class List extends Component {
                                 <td>Tasks</td>
                                 <td>Actions</td>
                             </tr>
+                            {this.state.loading && loadingDisplay  }
                         </thead>
                         <tbody>
                             {listOfItems}
