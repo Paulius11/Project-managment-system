@@ -77,7 +77,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			log.trace("Project status: " + project.getProjectStatus());
 			log.trace("Project total tasks: " + project.getListOfTasks().size());
 			displayAllprojectModel.setIncopleteTasks(project.getListOfTasks().stream()
-					.peek((x) -> log.debug(x.toString())).filter(x -> x.getTaskState() != TaskState.DONE).count());
+					.peek((x) -> log.trace(x.toString())).filter(x -> x.getTaskState() != TaskState.DONE).count());
 			listOfProjects.add(displayAllprojectModel);
 
 		});
