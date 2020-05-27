@@ -1,5 +1,3 @@
-package data;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -7,101 +5,106 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class JavaRandom {
 
-	private static String randomElement;
+    private static String randomElement;
 
-	public static String mainProject_State() {
+    public static String mainProject_State() {
 
-		Random rand = new Random();
+        Random rand = new Random();
 
-		List<String> givenList = Arrays.asList("'COMPLETED',", "'IN_PROGRESS',");
+        List<String> givenList = Arrays.asList("'COMPLETED'", "'ACTIVE'");
 
-		int numberOfElements = 1;
+        int numberOfElements = 1;
 
-		for (int i = 0; i < numberOfElements; i++) {
-			int randomIndex = rand.nextInt(givenList.size());
-			randomElement = givenList.get(randomIndex);
-		}
-		return randomElement;
-	}
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            randomElement = givenList.get(randomIndex);
+        }
+        return randomElement;
+    }
 
-	public static String mainTask_Priority() {
+    // randomNum(1, 10) -> 5
+    public static int randomNum(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
 
-		Random rand = new Random();
-		List<String> givenList = Arrays.asList("'HIGHT',", "'NORMAL',", "'LOW',");
+    public static String mainTask_Priority() {
 
-		int numberOfElements = 1;
+        Random rand = new Random();
+        List<String> givenList = Arrays.asList("'HIGH',", "'NORMAL',", "'LOW',");
 
-		for (int i = 0; i < numberOfElements; i++) {
-			int randomIndex = rand.nextInt(givenList.size());
-			randomElement = givenList.get(randomIndex);
-		}
-		return randomElement;
-	}
+        int numberOfElements = 1;
 
-	public static int numb() {
-		int min = 0;
-		int max = 1000;
-		int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-		return randomNum;
-	}
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            randomElement = givenList.get(randomIndex);
+        }
+        return randomElement;
+    }
 
-	public static String mainTasc_State() {
+    public static int numb() {
+        int min = 0;
+        int max = 1000;
+        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+        return randomNum;
+    }
 
-		Random rand = new Random();
-		List<String> givenList = Arrays.asList("'IN_PROGRESS',", "'TO_DO',", "'DONE',");
+    public static String mainTasc_State() {
 
-		int numberOfElements = 1;
+        Random rand = new Random();
+        List<String> givenList = Arrays.asList("'IN_PROGRESS'", "'TO_DO'", "'DONE'");
 
-		for (int i = 0; i < numberOfElements; i++) {
-			int randomIndex = rand.nextInt(givenList.size());
-			randomElement = givenList.get(randomIndex);
-		}
-		return randomElement;
-	}
+        int numberOfElements = 1;
 
-	public static String mainTask_Name() {
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            randomElement = givenList.get(randomIndex);
+        }
+        return randomElement;
+    }
 
-		Random rand = new Random();
-		List<String> givenList = Arrays.asList("'JAVA',", "'REACT',", "'BECKEND',", "'FRONTEND',", "'JAVASCRIPT',",
-				"'PYTHON',", "'C++',", "'LOGO',");
+    public static String mainTask_Name() {
 
-		int numberOfElements = 1;
+        Random rand = new Random();
+        List<String> givenList = Arrays.asList("'JAVA',", "'REACT',", "'BECKEND',", "'FRONTEND',", "'JAVASCRIPT',",
+                "'PYTHON',", "'C++',", "'LOGO',");
 
-		for (int i = 0; i < numberOfElements; i++) {
-			int randomIndex = rand.nextInt(givenList.size());
-			randomElement = givenList.get(randomIndex);
-		}
-		return randomElement;
-	}
+        int numberOfElements = 1;
 
-	public static String mainTask_Description() {
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            randomElement = givenList.get(randomIndex);
+        }
+        return randomElement;
+    }
 
-		Random rand = new Random();
-		List<String> givenList = Arrays.asList("'SUKURTI',", "'ATIDETI',", "'PERÞIURETI',", "'PASIRENGTI',",
-				"'ÁVYKDYTI',", "'REDAGUOTI',", "'PERDUOTI',", "'SUGENERUOTI',");
+    public static String mainTask_Description() {
 
-		int numberOfElements = 1;
+        Random rand = new Random();
+        List<String> givenList = Arrays.asList("'SUKURTI',", "'ATIDETI',", "'PERZIURETI',", "'PASIRENGTI',",
+                "'IVYKDYTI',", "'REDAGUOTI',", "'PERDUOTI',", "'SUGENERUOTI',");
 
-		for (int i = 0; i < numberOfElements; i++) {
-			int randomIndex = rand.nextInt(givenList.size());
-			randomElement = givenList.get(randomIndex);
-		}
-		return randomElement;
-	}
+        int numberOfElements = 1;
 
-	public static String mainProject_Descript() {
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            randomElement = givenList.get(randomIndex);
+        }
+        return randomElement;
+    }
 
-		Random rand = new Random();
-		List<String> givenList = Arrays.asList("'DARBINIS_PROJECTAS',", "'NUOTOLINIS_PROJECTAS',",
-				"'ATIDETAS_PROJECTAS',", "'PARENGTAS_PROJECTAS',", "'ÁVYKDYTAS_PROJECTAS',", "'REDAGUOTAS_PROJECTAS',",
-				"'PERDUOTAS_PROJECTAS',", "'SUGENERUOTAS_PROJECTAS',");
+    public static String mainProject_Descript() {
 
-		int numberOfElements = 1;
+        Random rand = new Random();
+        List<String> givenList = Arrays.asList("'DARBINIS_PROJECTAS',", "'NUOTOLINIS_PROJECTAS',",
+                "'ATIDETAS_PROJECTAS',", "'PARENGTAS_PROJECTAS',", "'IVYKDYTAS_PROJECTAS',", "'REDAGUOTAS_PROJECTAS',",
+                "'PERDUOTAS_PROJECTAS',", "'SUGENERUOTAS_PROJECTAS',");
 
-		for (int i = 0; i < numberOfElements; i++) {
-			int randomIndex = rand.nextInt(givenList.size());
-			randomElement = givenList.get(randomIndex);
-		}
-		return randomElement;
-	}
+        int numberOfElements = 1;
+
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            randomElement = givenList.get(randomIndex);
+        }
+        return randomElement;
+    }
 }
