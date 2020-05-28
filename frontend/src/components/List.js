@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Card, Table, ButtonGroup, Badge, Form, Button, Pagination, Container, Row, Col, Spinner, DropdownButton,Dropdown  } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList, faEdit, faTrash, faAdjust, faPlusSquare, faFileExport } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -208,7 +208,6 @@ export default class List extends Component {
                 lists.length ?
                     currentPosts.map(project => {
                         return (
-
                             <tr key={project.id}>
 
                                 <td>{project.id} </td>
@@ -219,15 +218,13 @@ export default class List extends Component {
 
                                 <td align="center">
                                     <ButtonGroup>
-                                        <Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faEdit} />  </Link>{''}
-
-                                        <Button size="sm" variant="outline-danger" onClick={this.submit.bind(this, project.id)}>
-                                            <FontAwesomeIcon icon={faTrash} /> </Button>{''}
-
-                                        <Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faAdjust} />  </Link>{''}
-                                        <Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary"> <FontAwesomeIcon icon={faList} />  </Link>{''}
-                                        <Button size="sm" variant="outline-success" onClick={this.getProjectCsv.bind(this, project.id)}> <FontAwesomeIcon icon={faFileExport} /></Button>
-
+                                    <DropdownButton as={ButtonGroup}  title="Edit" id="bg-nested-dropdown" variant="outline-secondary" size="sm">
+                                        <Dropdown.Item eventKey="3"><Link to={"tasklist/" + project.id} className="btn btn-sm btn-outline-primary">  View Tasks</Link>{''}</Dropdown.Item>
+                                        <Dropdown.Item eventKey="3"><Link to={"tasklist/addtask/" + project.id} className="btn btn-sm btn-outline-primary">  Add task  </Link>{''}</Dropdown.Item>
+                                        <Dropdown.Item eventKey="1"><Link to={"edit/" + project.id} className="btn btn-sm btn-outline-primary">  Edit project </Link>{''}</Dropdown.Item>
+                                        <Dropdown.Item eventKey="4"><Button size="sm" variant="outline-success" onClick={this.getProjectCsv.bind(this, project.id)}> Export as CSV</Button></Dropdown.Item>
+                                        <Dropdown.Item eventKey="2"><Button size="sm" variant="outline-danger" onClick={this.submit.bind(this, project.id)}> Delete Project</Button>{''}</Dropdown.Item>
+                                    </DropdownButton>
                                     </ButtonGroup>
                                 </td>
                             </tr >)
