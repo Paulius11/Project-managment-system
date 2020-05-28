@@ -119,18 +119,6 @@ export default class Task extends Component {
                                     className={"bg-dark text-white"}
                                     placeholder="Enter task name" />
                             </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridTaskDescription">
-                                <Form.Label>Task Description</Form.Label>
-                                <Form.Control required autoComplete="off"
-                                    type="text" name="taskDescription"
-                                    value={taskDescription}
-                                    onChange={this.projectChange}
-                                    className={"bg-dark text-white"}
-                                    placeholder="Description" />
-                            </Form.Group>
-
-
                         </Form.Row>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridTaskPriority">
@@ -162,7 +150,18 @@ export default class Task extends Component {
                             </Form.Group>
                         </Form.Row>
 
-
+                            <Form.Row>
+                                <Form.Group as={Col} controlId="formGridTaskDescription">
+                                    <Form.Label>Task Description</Form.Label>
+                                    <Form.Control required autoComplete="off"
+                                        type="textarea" name="taskDescription"
+                                        value={taskDescription}
+                                        as="textarea" rows="3"
+                                        onChange={this.projectChange}
+                                        className={"bg-dark text-white"}
+                                        placeholder="Description" />
+                                </Form.Group>
+                            </Form.Row>
 
                     </Card.Body>
                     <Card.Footer>
